@@ -5,10 +5,10 @@ var email
 var password
 var username
 var date
-var usersDB = new Array();
+var database = new Array();
 
 // menu and login functions:
-usersDB[0] = {username: "p", password: "p"};
+database[0] = {username: "p", password: "p"};
 
 function show_only_welcome() {
     var e1 = document.getElementById("welcome");
@@ -58,11 +58,46 @@ $(document).ready(function () {
         } else if (!email.match(/^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/)) {
             alert("Your e-mail is invalid");
         } else {
-            usersDB[usersDB.length] = {username: $("#username").val(), password: $("#password").val()};
-
+            database[database.length] = {username: username, password: password};
+            document.getElementById('username').value = null;
+            document.getElementById('password').value = null;
+            var e1 = document.getElementById("welcome");
+            e1.style.display = 'none';
+            var e2 = document.getElementById("register");
+            e2.style.display = 'none';
+            var e3 = document.getElementById("login");
+            e3.style.display = 'block';
         }
     });
 });
+
+$(document).ready(function () {
+    $("#btnLogin").click(function () {
+        var boolean = false;
+        var thisuser = $("#username").val();
+        var thispassword = $("#password").val();
+
+        for (var i = 0; i < database.length; i++) {
+            if (database[i].username == thisuser && database[i].password == thispassword) {
+                boolean = true;
+            }
+        }
+
+        if (boolean == false) {
+            alert("Wrong details. Please try again");
+        } else {
+            var e1 = document.getElementById("welcome");
+            e1.style.display = 'none';
+            var e2 = document.getElementById("register");
+            e2.style.display = 'none';
+            var e3 = document.getElementById("login");
+            e3.style.display = 'none';
+            var e4 = document.getElementById("gamewindow");
+            e4.style.display = 'block';
+        }
+    });
+});
+
 
 $(document).ready(function () {
     // When the user clicks anywhere outside of the modal, close it
