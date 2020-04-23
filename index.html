@@ -1,21 +1,154 @@
 <!DOCTYPE html>
 <html>
 	<head>
+		<link rel="stylesheet" href="style.css">
 		<script src="./jquery-3.4.1.slim.min.js"></script>
+		<script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.0/jquery.min.js" type="text/javascript"></script>
 		<script type="text/javascript" src="./app.js"></script>
+		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+		<link href="https://cdnjs.cloudflare.com/ajax/libs/emojionearea/3.4.0/emojionearea.min.css" rel="stylesheet">
 	</head>
+	<header>
+			<div id="logomenupart" class="logomenu">
+				<ul>
+					<img class="logo" src="src/main-logo.png">
+					<li><i aria-hidden="true"></i>
+						Michal Ezrets & Raz Klein</a></li>
+				</ul>
+			</div>
+	</header>
+	<menu>
+		<div id="men" class="menu-bar">
+			<ul>
+				<li><a id="btn1" href="#" onclick="show_only_welcome()" class="btn"><i aria-hidden="true"></i>
+					Welcome</a></li>
+				<li><a id="btn2" href="#" onclick="show_only_register()" class="btn"><i aria-hidden="true"></i>
+					Register</a></li>
+				<li><a id="btn3" href="#" onclick="show_only_login()" class="btn"><i aria-hidden="true"></i>
+					Login</a></li>
+				<li><a id="btn4" onclick="f" class="btn"><i  aria-hidden="true"></i>
+					About</a></li>
+			</ul>
+		</div>
+	</menu>
+<body>
 
-	<body>
-		<div id="score">
-			<label for="lblScore">SCORE:</label>
-			<input id="lblScore" type="text" />
-		</div>
-		<div id="time">
-			<label for="lblTime">TIME:</label>
-			<input id="lblTime" type="text" />
-		</div>
-		<div id="game">
-			<canvas id="canvas" height="600" width="600"></canvas>
-		</div>
-	</body>
+<!-- WELLCOME WINDOW-->
+<div id="welcome" class="changedDivs" style="display:inline">
+    </br>
+    </br>
+    </br>
+    <button href="#" onclick="show_only_register()"><strong>Register</strong></button>
+    </br>
+    </br>
+    </br>
+    </br>
+    </br>
+    </br>
+	</br>
+	<button href="#" onclick="show_only_login()"><strong>Log in</strong></button>
+	</br>
+	</br>
+	</br>
+</div>
+
+<!-- REGISTER WINDOW-->
+<div id = "register" class="changedDivs" style="display:none">
+    <form class="form">
+        <input type="text" placeholder="username"/>
+        <input type="password" placeholder="password"/>
+        <input type="text" placeholder="name"/>
+        <input type="text" placeholder="email address"/>
+        <input id="DD" placeholder="DD" maxlength="2"/>
+        <input id="MM" placeholder="MM" maxlength="2"/>
+        <input id="YY" placeholder="YYYY" maxlength="4"/>
+        <button>register</button>
+        <p class="message">Already registered? <a href="#" onclick="show_only_login()">Sign In</a></p>
+	</form>
+</div>
+
+<!-- LOGIN WINDOW-->
+<div id="login" class="changedDivs" style="display: none">
+	<br/>
+	<br/>
+	<br/>
+	<br/>
+	<br/>
+	<form class="form">
+			<input type="text" placeholder="username"/>
+			<input type="password" placeholder="password"/>
+			<button>login</button>
+			<p class="message">Not registered? <a href="#" onclick="show_only_register()">Create an account</a></p>
+		</form>
+		<br/>
+		<br/>
+	<br/>
+	<br/>
+</div>
+</body>
+
+<!-- ABOUT WINDOW-->
+<dialog id="dialog">
+	<h3>DIALOG</h3>
+</dialog>
+
+
+
+<!-- GAME WINDOW-->
+<div id="gamewindow" class="changedDivs" style="display:none" >
+	<div id="score">
+		<label for="lblScore">SCORE:</label>
+		<input id="lblScore" type="text" />
+	</div>
+	<div id="time">
+		<label for="lblTime">TIME:</label>
+		<input id="lblTime" type="text" />
+	</div>
+	<div id="game">
+		<canvas id="canvas" height="600" width="600"></canvas>
+	</div>
+</div>
+
+<footer id="footer">
+    <div id="footermenu" class="footerclass">
+        <ul>
+            <li><i aria-hidden="true"></i>
+				This site belongs to Michal Ezrets and Raz Klein. you can contact us via e-mail: razkl@post.bgu.ac.il and michalez@post.bgu.ac.il</a></li>
+        </ul>
+    </div>
+</footer>
+
 </html>
+
+<script language="javascript">
+	function show_only_welcome(){
+		var e1 = document.getElementById("welcome");
+		e1.style.display='block';
+		var e2 = document.getElementById("register");
+		e2.style.display='none';
+		var e3 = document.getElementById("login");
+		e3.style.display='none';
+	}
+</script>
+<script language="javascript">
+	function show_only_register(){
+		var e1 = document.getElementById("welcome");
+		e1.style.display='none';
+		var e2 = document.getElementById("register");
+		e2.style.display='block';
+		var e3 = document.getElementById("login");
+		e3.style.display='none';
+	}
+</script>
+<script language="javascript">
+	function show_only_login(){
+		var e1 = document.getElementById("welcome");
+		e1.style.display='none';
+		var e2 = document.getElementById("register");
+		e2.style.display='none';
+		var e3 = document.getElementById("login");
+		e3.style.display='block';
+	}
+</script>
+
+
