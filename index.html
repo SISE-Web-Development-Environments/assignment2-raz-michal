@@ -26,12 +26,13 @@
 					Register</a></li>
 				<li><a id="btn3" href="#" onclick="show_only_login()" class="btn"><i aria-hidden="true"></i>
 					Login</a></li>
-				<li><a id="btn4" onclick="f" class="btn"><i  aria-hidden="true"></i>
+				<li><a id="btn4" href="#"  onclick="show_about()" class="btn"><i  aria-hidden="true"></i>
 					About</a></li>
 			</ul>
 		</div>
 	</menu>
 <body>
+
 
 <!-- WELLCOME WINDOW-->
 <div id="welcome" class="changedDivs" style="display:inline">
@@ -88,9 +89,23 @@
 </body>
 
 <!-- ABOUT WINDOW-->
-<dialog id="dialog">
-	<h3>DIALOG</h3>
-</dialog>
+<div id="myModal" class="modal">
+
+	<!-- Modal content -->
+	<div class="modal-content">
+		<span onclick="show_only_welcome()" class="close">&times;</span>
+		<center><b>ABOUT:</b></center>
+		<p><b>Raz Klein - 312407646
+			<br/>
+			Michal Ezrets - 205620974</b>
+			<br/>
+			(????)
+			<br/>
+			Bla Bla Bla
+		</p>
+	</div>
+
+</div>
 
 
 
@@ -120,6 +135,29 @@
 
 </html>
 
+<script>
+	$(document).ready(function() {
+		// When the user clicks anywhere outside of the modal, close it
+		var model = document.getElementById("myModal");
+		window.onclick = function(event) {
+			if (event.target == model) {
+				show_only_welcome()
+			}
+		}
+	});
+</script>
+<script language="javascript">
+function show_about(){
+	var e1 = document.getElementById("welcome");
+	e1.style.display='none';
+	var e2 = document.getElementById("register");
+	e2.style.display='none';
+	var e3 = document.getElementById("login");
+	e3.style.display='none';
+	var e4 = document.getElementById("myModal");
+	e4.style.display='block';
+}
+</script>
 <script language="javascript">
 	function show_only_welcome(){
 		var e1 = document.getElementById("welcome");
@@ -128,6 +166,8 @@
 		e2.style.display='none';
 		var e3 = document.getElementById("login");
 		e3.style.display='none';
+		var e4 = document.getElementById("myModal");
+		e4.style.display='none';
 	}
 </script>
 <script language="javascript">
@@ -150,5 +190,3 @@
 		e3.style.display='block';
 	}
 </script>
-
-
