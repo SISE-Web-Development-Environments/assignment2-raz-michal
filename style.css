@@ -6,8 +6,6 @@
 {
 	padding:0;
 	margin:0;
-	box-sizing: border-box;
-	top: 85px;
 	-webkit-background-size: cover;
 	-moz-background-size: cover;
 	-o-background-size: cover;
@@ -99,13 +97,12 @@ body{
 
 .footerclass
 {
-	margin-top: 40%;
-	position:fixed;
+	position: fixed;
+	background: #00264b;
 	bottom:0;
 	width:100%;
 	height:20px;
 	font-size: 15px;
-	background: #00264b;
 	text-align: center;
 	color: white;
 }
