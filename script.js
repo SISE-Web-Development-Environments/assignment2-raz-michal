@@ -1,10 +1,4 @@
 // user-Details
-var firstname
-var lastname
-var email
-var password
-var username
-var date
 var database = new Array();
 
 // menu and login functions:
