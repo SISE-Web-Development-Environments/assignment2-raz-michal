@@ -3,10 +3,9 @@ var database = new Array();
 database[0] = {username: "p", password: "p"};
 
 $(document).ready(function () {
-
-
     // menu and login functions:
-    $("#btnRegister").click(function () {
+    $("#btnRegister").click(function (event) {
+        event.preventDefault();
         var vfirstname = $("#firstname").val();
         var vlastname = $("#lastname").val();
         var vemail = $("#email").val();
@@ -34,7 +33,8 @@ $(document).ready(function () {
         }
     });
 
-    $("#btnLogin").click(function () {
+    $("#btnLogin").click(function (event) {
+        event.preventDefault();
         var boolean = false;
         var thisuser = $("#loguser").val();
         var thispassword = $("#logpassword").val();
