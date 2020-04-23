@@ -54,7 +54,7 @@ $(document).ready(function () {
         }
     });
 
-    /*
+
     var model = document.getElementById("myModal");
     window.onclick = function (event) {
         if (event.target == model) {
@@ -66,7 +66,7 @@ $(document).ready(function () {
     span.onclick = function () {
         show_only_welcome()
     }
-    */
+
 
 });
 
