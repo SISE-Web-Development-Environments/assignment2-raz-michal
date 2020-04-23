@@ -1,10 +1,11 @@
 // user-Details
 var database = new Array();
+var userName;
 
 // menu and login functions:
 database[0] = {username: "p", password: "p"};
 
-function show_only_welcome() {
+function show_only_welcome(e) {
     var e1 = document.getElementById("welcome");
     e1.style.display = 'block';
     var e2 = document.getElementById("register");
@@ -13,27 +14,30 @@ function show_only_welcome() {
     e3.style.display = 'none';
     var e4 = document.getElementById("myModal");
     e4.style.display = 'none';
+    e.preventDefault()
 }
 
-function show_only_register() {
+function show_only_register(e) {
     var e1 = document.getElementById("welcome");
     e1.style.display = 'none';
     var e2 = document.getElementById("register");
     e2.style.display = 'block';
     var e3 = document.getElementById("login");
     e3.style.display = 'none';
+    e.preventDefault()
 }
 
-function show_only_login() {
+function show_only_login(e) {
     var e1 = document.getElementById("welcome");
     e1.style.display = 'none';
     var e2 = document.getElementById("register");
     e2.style.display = 'none';
     var e3 = document.getElementById("login");
     e3.style.display = 'block';
+    e.preventDefault()
 }
 
-$(document).ready(function () {
+$(document).ready(function (e) {
     $("#btnRegister").click(function () {
         var firstname = $("#firstname").val();
         var lastname = $("#lastname").val();
@@ -52,7 +56,7 @@ $(document).ready(function () {
         } else if (!email.match(/^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/)) {
             alert("Your e-mail is invalid");
         } else {
-            database[database.length] = {username: username, password: password};
+            database[database.length] = {username: $("#username").val() , password: $("#password").val()};
             document.getElementById('username').value = null;
             document.getElementById('password').value = null;
             var e2 = document.getElementById("register");
@@ -60,34 +64,41 @@ $(document).ready(function () {
             var e3 = document.getElementById("login");
             e3.style.display = 'block';
         }
+        e.preventDefault()
     });
-});
 
-$(document).ready(function () {
     $("#btnLogin").click(function () {
-        var boolean = false;
-        var thisuser = $("#username").val();
-        var thispassword = $("#password").val();
+        var boolUser = false;
+        var boolPassword = false;
+        userName = null;
+        userName = $("#username").val();
+        var userPassword = $("#password").val();
 
         for (var i = 0; i < database.length; i++) {
-            if (database[i].username == thisuser && database[i].password == thispassword) {
-                boolean = true;
+            if (database[i].username == userName){
+                boolUser = true;
+                if(database[i].password == userPassword) {
+                    boolPassword = true;
+                }
             }
         }
 
-        if (boolean == false) {
-            alert("Wrong details. Please try again");
+        if (boolUser == false) {
+            alert("Wrong User. Please try again");
+        }
+        else if (boolPassword == false) {
+            alert("Wrong password. Please try again");
         } else {
-            var e3 = document.getElementById("login");
+            alert("connected");
+            var e3 = document.getElementById("welcome");
             e3.style.display = 'none';
             var e4 = document.getElementById("gamewindow");
             e4.style.display = 'block';
+
         }
+        e.preventDefault()
     });
-});
 
-
-$(document).ready(function () {
     // When the user clicks anywhere outside of the modal, close it
     var model = document.getElementById("myModal");
     window.onclick = function (event) {
@@ -96,12 +107,16 @@ $(document).ready(function () {
         }
     }
     var span = document.getElementsByClassName("close")[0];
-    span.onclick = function () {
-        show_only_welcome()
+    span.onclick = function (event) {
+        if (event.target == model) {
+            show_only_welcome()
+        }
     }
+
+    e.preventDefault()
 });
 
-function show_about() {
+function show_about(e) {
     var e1 = document.getElementById("welcome");
     e1.style.display = 'none';
     var e2 = document.getElementById("register");
@@ -110,6 +125,7 @@ function show_about() {
     e3.style.display = 'none';
     var e4 = document.getElementById("myModal");
     e4.style.display = 'block';
+    e.preventDefault()
 }
 
 
