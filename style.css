@@ -14,7 +14,6 @@
 	background-size: cover;
 	font-family: sans-serif;
 	text-align: center;
-
 }
 
 /* body background */
@@ -100,16 +99,15 @@ body{
 
 .footerclass
 {
-	position: relative;
-	height: 30px;
-	margin-top: -100px;
-	clear: both;
-	display: inline-block;
+	position: absolute;
+	left: 0;
+	bottom: 0;
+	height: 1.0rem;
+	width: 100%;
 	font-weight: 200;
 	font-size: 15px;
-	width: 100%;
 	background: #00264b;
-	text-align: left;
+	text-align: center;
 }
 
 .footerclass ul
@@ -124,7 +122,7 @@ body{
 	width: 1200px;
 	padding: 5px;
 	margin-top: 2px;
-
+	text-align: center;
 }
 
 /* buttons design*/
