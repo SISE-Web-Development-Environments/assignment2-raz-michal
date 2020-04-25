@@ -131,6 +131,9 @@ function Start() {
 	pac_color = "yellow";
 	var cnt = 100;
 	var food_remain = 50;
+	var s_food = food_remain * 0.6;
+	var m_food = food_remain * 0.3;
+	var l_food = food_remain * 0.1;
 	var pacman_remain = 1;
 	start_time = new Date();
 	for (var i = 0; i < 10; i++) {
@@ -145,11 +148,25 @@ function Start() {
 				(i == 6 && j == 2)
 			) {
 				board[i][j] = 4;
+			}else if((i == 0 && j == 0) ||
+				(i == 0 && j == 14) && numofghosts>1||
+				(i == 14 && j == 14) && numofghosts>2){
+				board[i][j] = 1;
 			} else {
 				var randomNum = Math.random();
 				if (randomNum <= (1.0 * food_remain) / cnt) {
 					food_remain--;
-					board[i][j] = 1;
+					var randomFood = Math.floor(Math.random() * 3);
+					if(randomFood == 0 && s_food>0){
+						s_food--;
+						board[i][j] = 5;
+					}else if(randomFood ==1 && m_food>0) {
+						m_food--;
+						board[i][j] = 6;
+					}else if(randomFood ==2 && l_food>0) {
+						l_food--;
+						board[i][j] = 7;
+					}
 				} else if (randomNum < (1.0 * (pacman_remain + food_remain)) / cnt) {
 					shape.i = i;
 					shape.j = j;
@@ -164,8 +181,17 @@ function Start() {
 	}
 	while (food_remain > 0) {
 		var emptyCell = findRandomEmptyCell(board);
-		board[emptyCell[0]][emptyCell[1]] = 1;
 		food_remain--;
+		if(s_food>0){
+			s_food--;
+			board[emptyCell[0]][emptyCell[1]] = 5;
+		}else if(m_food>0) {
+			m_food--;
+			board[emptyCell[0]][emptyCell[1]] = 6;
+		}else if(l_food>0) {
+			l_food--;
+			board[emptyCell[0]][emptyCell[1]] = 7;
+		}
 	}
 	keysDown = {};
 	addEventListener(
@@ -231,15 +257,36 @@ function Draw() {
 				context.arc(center.x + 5, center.y - 15, 3, 0, 2 * Math.PI); // circle
 				context.fillStyle = "black"; //color
 				context.fill();
-			} else if (board[i][j] == 1) {
+			}else if (board[i][j] == 1) {
+				// pint ghost
 				context.beginPath();
-				context.arc(center.x, center.y, 10, 0, 2 * Math.PI); // circle
+				context.arc(center.x, center.y, 20, 0.15 * Math.PI, 1.85 * Math.PI); // half circle
+				context.lineTo(center.x, center.y);
+				context.fillStyle = "red"; //color
+				context.fill();
+				context.beginPath();
+				context.arc(center.x + 5, center.y - 15, 3, 0, 2 * Math.PI); // circle
 				context.fillStyle = "black"; //color
 				context.fill();
-			} else if (board[i][j] == 4) {
+			}else if (board[i][j] == 4) {
 				context.beginPath();
 				context.rect(center.x - 30, center.y - 30, 60, 60);
 				context.fillStyle = "grey"; //color
+				context.fill();
+			} else if (board[i][j] == 5) {
+				context.beginPath();
+				context.arc(center.x, center.y, 10, 0, 2 * Math.PI); // circle
+				context.fillStyle = colorfive; //color
+				context.fill();
+			} else if (board[i][j] == 6) {
+				context.beginPath();
+				context.arc(center.x, center.y, 10, 0, 2 * Math.PI); // circle
+				context.fillStyle = colorfifteen; //color
+				context.fill();
+			} else if (board[i][j] == 7) {
+				context.beginPath();
+				context.arc(center.x, center.y, 10, 0, 2 * Math.PI); // circle
+				context.fillStyle = colortwentyfive; //color
 				context.fill();
 			}
 		}
