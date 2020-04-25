@@ -19,6 +19,8 @@ var numofballs;
 var gametime;
 var numofghosts;
 
+var pacmanAngle = 4;
+
 function saveUp(event) {
 	moveup = event.keyCode;
 	if (moveup == 27) {  // 27 is the ESC key
@@ -223,12 +225,28 @@ function Draw() {
 			center.y = j * 60 + 30;
 			if (board[i][j] == 2) {
 				context.beginPath();
-				context.arc(center.x, center.y, 20, 0.15 * Math.PI, 1.85 * Math.PI); // half circle
+				if (pacmanAngle==1) {
+					context.arc(center.x, center.y, 20, 1.65 * Math.PI, 1.35 * Math.PI); // half circle
+				}
+				if (pacmanAngle==2) {
+					context.arc(center.x, center.y, 20, 0.75 * Math.PI, 0.25 * Math.PI); // half circle
+				}
+				if (pacmanAngle==3) {
+					context.arc(center.x, center.y, 20, 1.15 * Math.PI, 0.85 * Math.PI); // half circle
+				}
+				if (pacmanAngle==4) {
+					context.arc(center.x, center.y, 20, 0.15 * Math.PI, 1.85 * Math.PI); // half circle
+				}
 				context.lineTo(center.x, center.y);
 				context.fillStyle = pac_color; //color
 				context.fill();
 				context.beginPath();
-				context.arc(center.x + 5, center.y - 15, 3, 0, 2 * Math.PI); // circle
+				if (pacmanAngle==1 || pacmanAngle==2){
+					context.arc(center.x + 10, center.y - 10, 3, 0, 2 * Math.PI); // circle
+				}
+				if (pacmanAngle==3 || pacmanAngle==4){
+					context.arc(center.x + 5, center.y - 15, 3, 0, 2 * Math.PI); // circle
+				}
 				context.fillStyle = "black"; //color
 				context.fill();
 			} else if (board[i][j] == 1) {
@@ -252,21 +270,25 @@ function UpdatePosition() {
 	if (x == 1) {
 		if (shape.j > 0 && board[shape.i][shape.j - 1] != 4) {
 			shape.j--;
+			pacmanAngle=1;
 		}
 	}
 	if (x == 2) {
 		if (shape.j < 9 && board[shape.i][shape.j + 1] != 4) {
 			shape.j++;
+			pacmanAngle=2;
 		}
 	}
 	if (x == 3) {
 		if (shape.i > 0 && board[shape.i - 1][shape.j] != 4) {
 			shape.i--;
+			pacmanAngle=3;
 		}
 	}
 	if (x == 4) {
 		if (shape.i < 9 && board[shape.i + 1][shape.j] != 4) {
 			shape.i++;
+			pacmanAngle=4;
 		}
 	}
 	if (board[shape.i][shape.j] == 1) {
