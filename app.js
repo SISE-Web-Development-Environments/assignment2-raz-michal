@@ -9,6 +9,7 @@ var interval;
 var canvas;
 var life_left;
 var maxScore;
+var time_left;
 var audio = new Audio('src/pacmanSong.mp3');
 
 var moveup;
@@ -68,10 +69,11 @@ $(document).ready(function() {
 	colorfifteen = "blue"
 	colortwentyfive = "green"
 	numofballs= 70;
-	gametime= 60;
+	gametime= 15;
 	numofghosts= 3;
 	life_left = 5;
 	maxScore = (numofballs*0.6*5) + (numofballs*0.3*15) + (numofballs*0.1*25);
+	time_left = gametime;
 	/* DELETE IT!!! */
 
 
@@ -90,6 +92,7 @@ $(document).ready(function() {
             numofghosts = $("#numofghosts").val();
             life_left = 5;
             maxScore = (numofballs*0.6*5) + (numofballs*0.3*15) + (numofballs*0.1*25);
+            time_left = gametime;
             if (moveup == '' || movedown == '' || moveright == '' || moveleft == '' || colorfive == '' || colorfifteen == '' || colortwentyfive == '' || numofballs == '' || gametime == '' || numofghosts == '') {
                 alert("Please fill all fields!");
             } else if (numofballs < 50 || numofballs >90) {
@@ -127,6 +130,7 @@ $(document).ready(function() {
             numofghosts = Math.floor(Math.random() * 4) + 1;
             life_left = 5;
             maxScore = (numofballs*0.6*5) + (numofballs*0.3*15) + (numofballs*0.1*25);
+            time_left = gametime;
             var e1 = document.getElementById("choosesettings");
             e1.style.display = 'none';
             var e2 = document.getElementById("gamewindow");
@@ -173,7 +177,8 @@ function Start() {
 				board[i][j] = 4;
 			}else if((i == 0 && j == 0) ||
 				(i == 0 && j == 9) && numofghosts>1||
-				(i == 9 && j == 9) && numofghosts>2){
+				(i == 9 && j == 9) && numofghosts>2||
+				(i == 9 && j == 0) && numofghosts>3){
 				board[i][j] = 1;
 			} else {
 				var randomNum = Math.random();
@@ -356,15 +361,7 @@ function UpdatePosition() {
 			pacmanAngle = 4;
 		}
 	}
-	if (board[shape.i][shape.j] > 4) {
-		if (board[shape.i][shape.j] == 5) {
-			score += 5;
-		} else if (board[shape.i][shape.j] == 6) {
-			score += 15;
-		} else if (board[shape.i][shape.j] == 7) {
-			score += 25;
-		}
-	}
+
 	if (board[shape.i][shape.j] == 1) {
 		var emptyCell = findRandomEmptyCell
 		board[emptyCell[0]][emptyCell[1]] = 2;
@@ -374,24 +371,33 @@ function UpdatePosition() {
 		if(life_left>0){
 			alert("You have been eaten by a ghost!");
 		}else{
-			alert("Sorry Game Over, you lost");
 			audio.pause();
-			//show loosing model ?
+			alert("Sorry Game Over, you lost");
 		}
-	} else {
-		board[shape.i][shape.j] = 2;
+	}else if(board[shape.i][shape.j] == 3){
+		time_left += 30;
+	} else if (board[shape.i][shape.j] > 4) {
+		if (board[shape.i][shape.j] == 5) {
+			score += 5;
+		} else if (board[shape.i][shape.j] == 6) {
+			score += 15;
+		} else if (board[shape.i][shape.j] == 7) {
+			score += 25;
+		}
 	}
-	/*
+	board[shape.i][shape.j] = 2;
 	var currentTime = new Date();
 	time_elapsed = (currentTime - start_time) / 1000;
-	if (score >= 20 && time_elapsed <= 10) {
-		pac_color = "green";
+	time_left = gametime - time_elapsed;
+	if (score >= 20 && time_left <= 10) {
+		pac_color = "grey";
 	}
-	*/
 	if (score >= 400) {
 		window.clearInterval(interval);
 		window.alert("Game completed, you win!");
 		audio.pause();
+	}else if(time_left <= 0){
+		alert("time out, your time is out");
 	} else {
 		Draw();
 	}
@@ -402,7 +408,8 @@ function resetGhostLocation(){
 		for (var j = 0; j < 10; j++) {
 			if ((i == 0 && j == 0) ||
 				(i == 0 && j == 9) && numofghosts >1||
-				(i == 9 && j == 9) && numofghosts >2){
+				(i == 9 && j == 9) && numofghosts >2||
+				(i == 9 && j == 0) && numofghosts >3){
 				board[i][j] == 1
 			}
 			else if (board[i][j] == 1) {
