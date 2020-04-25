@@ -55,7 +55,7 @@ $(document).ready(function() {
 	moveright=39;
 	movedown=40;
 	moveleft=37;
-	colorfive- "red";
+	colorfive =  "red";
 	colorfifteen = "blue"
 	colortwentyfive = "green"
 	numofballs= 70;
