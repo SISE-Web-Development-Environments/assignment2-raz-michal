@@ -21,6 +21,9 @@ var numofghosts;
 
 var pacmanAngle = 4;
 var wall;
+var newClock;
+var xTime;
+var yTime;
 
 function saveUp(event) {
 	moveup = event.keyCode;
@@ -50,6 +53,8 @@ function saveLeft(event) {
 $(document).ready(function() {
 	wall= new Image();
 	wall.src="src/wall.png";
+	newClock=new Image();
+	newClock.src="src/clock.png";
 	canvas=document.getElementById("canvas");
 	context = canvas.getContext("2d");
 
@@ -204,6 +209,10 @@ function Start() {
 			board[emptyCell[0]][emptyCell[1]] = 7;
 		}
 	}
+	var emptyCell = findRandomEmptyCell(board);
+	xTime = emptyCell[0];
+	yTime = emptyCell[1];
+	board[emptyCell[0]][emptyCell[1]] = 3 ;
 	keysDown = {};
 	addEventListener(
 		"keydown",
@@ -296,7 +305,7 @@ function Draw() {
 				context.fillStyle = "black"; //color
 				context.fill();
 			}else if (board[i][j] == 4) {
-				context.drawImage(wall,center.x , center.y );
+				context.drawImage(wall,center.x - 30, center.y - 30, 60, 60 );
 			} else if (board[i][j] == 5) {
 				context.beginPath();
 				context.arc(center.x, center.y, 10, 0, 2 * Math.PI); // circle
@@ -312,6 +321,8 @@ function Draw() {
 				context.arc(center.x, center.y, 10, 0, 2 * Math.PI); // circle
 				context.fillStyle = colortwentyfive; //color
 				context.fill();
+			} else if (board[i][j] == 3){
+				context.drawImage(newClock, center.x - 30, center.y - 30, 60, 60);
 			}
 		}
 	}
