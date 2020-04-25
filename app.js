@@ -22,8 +22,6 @@ var numofghosts;
 var pacmanAngle = 4;
 var wall;
 var newClock;
-var xTime;
-var yTime;
 
 function saveUp(event) {
 	moveup = event.keyCode;
@@ -209,10 +207,6 @@ function Start() {
 			board[emptyCell[0]][emptyCell[1]] = 7;
 		}
 	}
-	var emptyCell = findRandomEmptyCell(board);
-	xTime = emptyCell[0];
-	yTime = emptyCell[1];
-	board[emptyCell[0]][emptyCell[1]] = 3 ;
 	keysDown = {};
 	addEventListener(
 		"keydown",
