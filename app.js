@@ -48,7 +48,7 @@ $(document).ready(function() {
 	canvas=document.getElementById("canvas");
 	context = canvas.getContext("2d");
 
-
+/*
 	$("#btnSaveSettings").click(function (event) {
 		event.preventDefault();
 		moveup = $("#moveup").val();
@@ -84,7 +84,7 @@ $(document).ready(function() {
 		}
 	});
 
-	$("#btnSaveSettings").click(function (event) {
+	$("#btnSaveRandom").click(function (event) {
 		event.preventDefault();
 		moveup = 38;
 		movedown = 40;
@@ -103,7 +103,8 @@ $(document).ready(function() {
 		Start();
 	});
 
-
+*/
+	Start();
 });
 
 
