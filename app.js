@@ -70,7 +70,7 @@ $(document).ready(function() {
 	colortwentyfive = "green"
 	numofballs= 70;
 	gametime= 15;
-	numofghosts= 3;
+	numofghosts= 4;
 	life_left = 5;
 	maxScore = (numofballs*0.6*5) + (numofballs*0.3*15) + (numofballs*0.1*25);
 	time_left = gametime;
@@ -376,7 +376,7 @@ function UpdatePosition() {
 		}
 	}else if(board[shape.i][shape.j] == 3){
 		time_left += 30;
-	} else if (board[shape.i][shape.j] > 4) {
+	}else if (board[shape.i][shape.j] > 4) {
 		if (board[shape.i][shape.j] == 5) {
 			score += 5;
 		} else if (board[shape.i][shape.j] == 6) {
