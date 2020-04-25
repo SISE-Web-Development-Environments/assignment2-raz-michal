@@ -48,62 +48,76 @@ $(document).ready(function() {
 	canvas=document.getElementById("canvas");
 	context = canvas.getContext("2d");
 
-/*
-	$("#btnSaveSettings").click(function (event) {
-		event.preventDefault();
-		moveup = $("#moveup").val();
-		movedown = $("#movedown").val();
-		moveright = $("#moveright").val();
-		moveleft = $("#moveleft").val();
-		colorfive = $("#colorfive").val();
-		colorfifteen = $("#colorfifteen").val();
-		colortwentyfive = $("#colortwentyfive").val();
-		numofballs = $("#numofballs").val();
-		gametime = $("#gametime").val();
-		numofghosts = $("#numofghosts").val();
-		if (moveup == '' || movedown == '' || moveright == '' || moveleft == '' || colorfive == '' || colorfifteen == '' || colortwentyfive == '' || numofballs == '' || gametime == '' || numofghosts == '') {
-			alert("Please fill all fields!");
-		} else if (numofballs < 50 || numofballs >90) {
-			alert("Number of balls must be between 50 and 90!");
-		} else if (gametime < 60) {
-			alert("Minimal game time is 60 seconds!");
-		} else if (numofghosts < 1 || numofghosts > 4) {
-			alert("Number of ghosts must be between 1 and 4!");
-		}else if (colorfive==colorfifteen || colorfifteen == colortwentyfive || colortwentyfive == colorfive) {
-			alert("The colors of the balls must be different!");
-		}else if (moveup==movedown || movedown == moveright || moveright == moveleft || moveleft == moveup || moveup == moveright || movedown == moveleft) {
-			alert("The moving keys must be different!");
-		} else {
-			document.getElementById('username').value = null;
-			document.getElementById('password').value = null;
-			var e1 = document.getElementById("choosesettings");
-			e1.style.display = 'none';
-			var e2 = document.getElementById("gamewindow");
-			e2.style.display = 'block';
-			Start();
-		}
-	});
+	/* DELETE IT !!!! */
+	moveup=38;
+	moveright=39;
+	movedown=40;
+	moveleft=37;
+	colorfive- "red";
+	colorfifteen = "blue"
+	colortwentyfive = "green"
+	numofballs= 70;
+	gametime= 60;
+	numofghosts= 3;
+	/* DELETE IT!!! */
 
-	$("#btnSaveRandom").click(function (event) {
-		event.preventDefault();
-		moveup = 38;
-		movedown = 40;
-		moveright = 39;
-		moveleft = 37;
-		colorfive = "#ddeedd";
-		colorfifteen = "#c2d4dd";
-		colortwentyfive = "#b0aac0";
-		numofballs = Math.floor(Math.random() * 41) + 50;
-		gametime = Math.floor(Math.random() * 120) + 60;
-		numofghosts = Math.floor(Math.random() * 4) + 1;
-		var e1 = document.getElementById("choosesettings");
-		e1.style.display = 'none';
-		var e2 = document.getElementById("gamewindow");
-		e2.style.display = 'block';
-		Start();
-	});
 
-*/
+	/*
+        $("#btnSaveSettings").click(function (event) {
+            event.preventDefault();
+            moveup = $("#moveup").val();
+            movedown = $("#movedown").val();
+            moveright = $("#moveright").val();
+            moveleft = $("#moveleft").val();
+            colorfive = $("#colorfive").val();
+            colorfifteen = $("#colorfifteen").val();
+            colortwentyfive = $("#colortwentyfive").val();
+            numofballs = $("#numofballs").val();
+            gametime = $("#gametime").val();
+            numofghosts = $("#numofghosts").val();
+            if (moveup == '' || movedown == '' || moveright == '' || moveleft == '' || colorfive == '' || colorfifteen == '' || colortwentyfive == '' || numofballs == '' || gametime == '' || numofghosts == '') {
+                alert("Please fill all fields!");
+            } else if (numofballs < 50 || numofballs >90) {
+                alert("Number of balls must be between 50 and 90!");
+            } else if (gametime < 60) {
+                alert("Minimal game time is 60 seconds!");
+            } else if (numofghosts < 1 || numofghosts > 4) {
+                alert("Number of ghosts must be between 1 and 4!");
+            }else if (colorfive==colorfifteen || colorfifteen == colortwentyfive || colortwentyfive == colorfive) {
+                alert("The colors of the balls must be different!");
+            }else if (moveup==movedown || movedown == moveright || moveright == moveleft || moveleft == moveup || moveup == moveright || movedown == moveleft) {
+                alert("The moving keys must be different!");
+            } else {
+                document.getElementById('username').value = null;
+                document.getElementById('password').value = null;
+                var e1 = document.getElementById("choosesettings");
+                e1.style.display = 'none';
+                var e2 = document.getElementById("gamewindow");
+                e2.style.display = 'block';
+                Start();
+            }
+        });
+
+        $("#btnSaveRandom").click(function (event) {
+            event.preventDefault();
+            moveup = 38;
+            movedown = 40;
+            moveright = 39;
+            moveleft = 37;
+            colorfive = "#ddeedd";
+            colorfifteen = "#c2d4dd";
+            colortwentyfive = "#b0aac0";
+            numofballs = Math.floor(Math.random() * 41) + 50;
+            gametime = Math.floor(Math.random() * 120) + 60;
+            numofghosts = Math.floor(Math.random() * 4) + 1;
+            var e1 = document.getElementById("choosesettings");
+            e1.style.display = 'none';
+            var e2 = document.getElementById("gamewindow");
+            e2.style.display = 'block';
+            Start();
+        });
+
+    */
 	Start();
 });
 
@@ -182,16 +196,16 @@ function findRandomEmptyCell(board) {
 }
 
 function GetKeyPressed() {
-	if (keysDown[38]) {
+	if (keysDown[moveup]) {
 		return 1;
 	}
-	if (keysDown[40]) {
+	if (keysDown[movedown]) {
 		return 2;
 	}
-	if (keysDown[37]) {
+	if (keysDown[moveleft]) {
 		return 3;
 	}
-	if (keysDown[39]) {
+	if (keysDown[moveright]) {
 		return 4;
 	}
 }
