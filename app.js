@@ -221,6 +221,8 @@ function Start() {
 			board[emptyCell[0]][emptyCell[1]] = 7;
 		}
 	}
+	var emptyCell = findRandomEmptyCell(board);
+	board[emptyCell[0]][emptyCell[1]] = 3 ;
 	keysDown = {};
 	addEventListener(
 		"keydown",
