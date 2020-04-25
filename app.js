@@ -69,7 +69,7 @@ $(document).ready(function() {
 	colorfifteen = "blue"
 	colortwentyfive = "green"
 	numofballs= 70;
-	gametime= 15;
+	gametime= 60;
 	numofghosts= 4;
 	life_left = 5;
 	maxScore = (numofballs*0.6*5) + (numofballs*0.3*15) + (numofballs*0.1*25);
@@ -365,7 +365,7 @@ function UpdatePosition() {
 	}
 
 	if (board[shape.i][shape.j] == 1) {
-		var emptyCell = findRandomEmptyCell
+		var emptyCell = findRandomEmptyCell(board);
 		board[emptyCell[0]][emptyCell[1]] = 2;
 		resetGhostLocation();
 		life_left--;
