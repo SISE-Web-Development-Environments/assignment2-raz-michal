@@ -67,7 +67,6 @@ $(document).ready(function () {
         show_only_welcome()
     }
 
-
 });
 
 function show_only_welcome() {
