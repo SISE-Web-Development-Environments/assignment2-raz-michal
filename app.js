@@ -151,8 +151,8 @@ function Start() {
 			) {
 				board[i][j] = 4;
 			}else if((i == 0 && j == 0) ||
-				(i == 0 && j == 14) && numofghosts>1||
-				(i == 14 && j == 14) && numofghosts>2){
+				(i == 0 && j == 9) && numofghosts>1||
+				(i == 9 && j == 9) && numofghosts>2){
 				board[i][j] = 1;
 			} else {
 				var randomNum = Math.random();
@@ -320,26 +320,37 @@ function UpdatePosition() {
 			pacmanAngle=1;
 		}
 	}
-	if (x == 2) {
+	else if (x == 2) {
 		if (shape.j < 9 && board[shape.i][shape.j + 1] != 4) {
 			shape.j++;
 			pacmanAngle=2;
 		}
 	}
-	if (x == 3) {
+	else if (x == 3) {
 		if (shape.i > 0 && board[shape.i - 1][shape.j] != 4) {
 			shape.i--;
 			pacmanAngle=3;
 		}
 	}
-	if (x == 4) {
+	else if (x == 4) {
 		if (shape.i < 9 && board[shape.i + 1][shape.j] != 4) {
 			shape.i++;
 			pacmanAngle=4;
 		}
 	}
-	if (board[shape.i][shape.j] == 1) {
-		score++;
+	if (board[shape.i][shape.j] > 4) {
+		if(board[shape.i][shape.j] == 5){
+			score+=5;
+		}
+		else if(board[shape.i][shape.j] == 6){
+			score+=15;
+		}
+		else if(board[shape.i][shape.j] == 7){
+			score+=25;
+		}
+	}else if(board[shape.i][shape.j] == 1){
+		alert("You have been eaten by a ghost!");
+		//add loosing life and back to game if has mor life
 	}
 	board[shape.i][shape.j] = 2;
 	var currentTime = new Date();
