@@ -23,6 +23,10 @@ var gametime;
 var numofghosts;
 
 var pacmanAngle = 4;
+var wall;
+var newClock;
+var xTime;
+var yTime;
 
 function saveUp(event) {
 	moveup = event.keyCode;
@@ -50,6 +54,10 @@ function saveLeft(event) {
 }
 
 $(document).ready(function() {
+	wall= new Image();
+	wall.src="src/wall.png";
+	newClock=new Image();
+	newClock.src="src/clock.png";
 	canvas=document.getElementById("canvas");
 	context = canvas.getContext("2d");
 	audio.pause();
@@ -152,11 +160,17 @@ function Start() {
 		//put obstacles in (i=3,j=3) and (i=3,j=4) and (i=3,j=5), (i=6,j=1) and (i=6,j=2)
 		for (var j = 0; j < 10; j++) {
 			if (
-				(i == 3 && j == 3) ||
 				(i == 3 && j == 4) ||
 				(i == 3 && j == 5) ||
+				(i == 3 && j == 6) ||
+				(i == 4 && j == 6) ||
+				(i == 5 && j == 6) ||
+				(i == 5 && j == 5) ||
+				(i == 5 && j == 4) ||
 				(i == 6 && j == 1) ||
-				(i == 6 && j == 2)
+				(i == 6 && j == 2) ||
+				(i == 5 && j == 2)
+
 			) {
 				board[i][j] = 4;
 			}else if((i == 0 && j == 0) ||
@@ -204,6 +218,10 @@ function Start() {
 			board[emptyCell[0]][emptyCell[1]] = 7;
 		}
 	}
+	var emptyCell = findRandomEmptyCell(board);
+	xTime = emptyCell[0];
+	yTime = emptyCell[1];
+	board[emptyCell[0]][emptyCell[1]] = 3 ;
 	keysDown = {};
 	addEventListener(
 		"keydown",
@@ -297,10 +315,7 @@ function Draw() {
 				context.fillStyle = "black"; //color
 				context.fill();
 			}else if (board[i][j] == 4) {
-				context.beginPath();
-				context.rect(center.x - 30, center.y - 30, 60, 60);
-				context.fillStyle = "grey"; //color
-				context.fill();
+				context.drawImage(wall,center.x - 30, center.y - 30, 60, 60 );
 			} else if (board[i][j] == 5) {
 				context.beginPath();
 				context.arc(center.x, center.y, 10, 0, 2 * Math.PI); // circle
@@ -316,6 +331,8 @@ function Draw() {
 				context.arc(center.x, center.y, 10, 0, 2 * Math.PI); // circle
 				context.fillStyle = colortwentyfive; //color
 				context.fill();
+			} else if (board[i][j] == 3){
+				context.drawImage(newClock, center.x - 30, center.y - 30, 60, 60);
 			}
 		}
 	}
