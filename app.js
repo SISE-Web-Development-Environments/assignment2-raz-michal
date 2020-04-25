@@ -7,6 +7,9 @@ var start_time;
 var time_elapsed;
 var interval;
 var canvas;
+var life_left;
+var maxScore;
+var audio = new Audio('src/pacmanSong.mp3');
 
 var moveup;
 var movedown;
@@ -49,7 +52,7 @@ function saveLeft(event) {
 $(document).ready(function() {
 	canvas=document.getElementById("canvas");
 	context = canvas.getContext("2d");
-
+	audio.pause();
 	/* DELETE IT !!!! */
 	moveup=38;
 	moveright=39;
@@ -61,6 +64,8 @@ $(document).ready(function() {
 	numofballs= 70;
 	gametime= 60;
 	numofghosts= 3;
+	life_left = 5;
+	maxScore = (numofballs*0.6*5) + (numofballs*0.3*15) + (numofballs*0.1*25);
 	/* DELETE IT!!! */
 
 
@@ -77,6 +82,8 @@ $(document).ready(function() {
             numofballs = $("#numofballs").val();
             gametime = $("#gametime").val();
             numofghosts = $("#numofghosts").val();
+            life_left = 5;
+            maxScore = (numofballs*0.6*5) + (numofballs*0.3*15) + (numofballs*0.1*25);
             if (moveup == '' || movedown == '' || moveright == '' || moveleft == '' || colorfive == '' || colorfifteen == '' || colortwentyfive == '' || numofballs == '' || gametime == '' || numofghosts == '') {
                 alert("Please fill all fields!");
             } else if (numofballs < 50 || numofballs >90) {
@@ -112,6 +119,8 @@ $(document).ready(function() {
             numofballs = Math.floor(Math.random() * 41) + 50;
             gametime = Math.floor(Math.random() * 120) + 60;
             numofghosts = Math.floor(Math.random() * 4) + 1;
+            life_left = 5;
+            maxScore = (numofballs*0.6*5) + (numofballs*0.3*15) + (numofballs*0.1*25);
             var e1 = document.getElementById("choosesettings");
             e1.style.display = 'none';
             var e2 = document.getElementById("gamewindow");
@@ -127,7 +136,7 @@ $(document).ready(function() {
 // game function
 
 function Start() {
-
+	audio.play();
 	board = new Array();
 	score = 0;
 	pac_color = "yellow";
@@ -239,6 +248,7 @@ function GetKeyPressed() {
 }
 
 function Draw() {
+	audio.play();
 	var background = new Image();
 	background.src = "src/Wiki-background.jpg";
 	canvas.width = canvas.width; //clean board
@@ -317,51 +327,76 @@ function UpdatePosition() {
 	if (x == 1) {
 		if (shape.j > 0 && board[shape.i][shape.j - 1] != 4) {
 			shape.j--;
-			pacmanAngle=1;
+			pacmanAngle = 1;
 		}
-	}
-	else if (x == 2) {
+	} else if (x == 2) {
 		if (shape.j < 9 && board[shape.i][shape.j + 1] != 4) {
 			shape.j++;
-			pacmanAngle=2;
+			pacmanAngle = 2;
 		}
-	}
-	else if (x == 3) {
+	} else if (x == 3) {
 		if (shape.i > 0 && board[shape.i - 1][shape.j] != 4) {
 			shape.i--;
-			pacmanAngle=3;
+			pacmanAngle = 3;
 		}
-	}
-	else if (x == 4) {
+	} else if (x == 4) {
 		if (shape.i < 9 && board[shape.i + 1][shape.j] != 4) {
 			shape.i++;
-			pacmanAngle=4;
+			pacmanAngle = 4;
 		}
 	}
 	if (board[shape.i][shape.j] > 4) {
-		if(board[shape.i][shape.j] == 5){
-			score+=5;
+		if (board[shape.i][shape.j] == 5) {
+			score += 5;
+		} else if (board[shape.i][shape.j] == 6) {
+			score += 15;
+		} else if (board[shape.i][shape.j] == 7) {
+			score += 25;
 		}
-		else if(board[shape.i][shape.j] == 6){
-			score+=15;
-		}
-		else if(board[shape.i][shape.j] == 7){
-			score+=25;
-		}
-	}else if(board[shape.i][shape.j] == 1){
-		alert("You have been eaten by a ghost!");
-		//add loosing life and back to game if has mor life
 	}
-	board[shape.i][shape.j] = 2;
+	if (board[shape.i][shape.j] == 1) {
+		var emptyCell = findRandomEmptyCell
+		board[emptyCell[0]][emptyCell[1]] = 2;
+		resetGhostLocation();
+		life_left--;
+		score -= 10;
+		if(life_left>0){
+			alert("You have been eaten by a ghost!");
+		}else{
+			alert("Sorry Game Over, you lost");
+			audio.pause();
+			//show loosing model ?
+		}
+	} else {
+		board[shape.i][shape.j] = 2;
+	}
+	/*
 	var currentTime = new Date();
 	time_elapsed = (currentTime - start_time) / 1000;
 	if (score >= 20 && time_elapsed <= 10) {
 		pac_color = "green";
 	}
-	if (score == 50) {
+	*/
+	if (score >= 400) {
 		window.clearInterval(interval);
-		window.alert("Game completed");
+		window.alert("Game completed, you win!");
+		audio.pause();
 	} else {
 		Draw();
+	}
+}
+
+function resetGhostLocation(){
+	for (var i = 0; i < 10; i++) {
+		for (var j = 0; j < 10; j++) {
+			if ((i == 0 && j == 0) ||
+				(i == 0 && j == 9) && numofghosts >1||
+				(i == 9 && j == 9) && numofghosts >2){
+				board[i][j] == 1
+			}
+			else if (board[i][j] == 1) {
+				board[i][j] == 0
+			}
+		}
 	}
 }
