@@ -20,6 +20,7 @@ var gametime;
 var numofghosts;
 
 var pacmanAngle = 4;
+var wall;
 
 function saveUp(event) {
 	moveup = event.keyCode;
@@ -47,6 +48,8 @@ function saveLeft(event) {
 }
 
 $(document).ready(function() {
+	wall= new Image();
+	wall.src="src/wall.png";
 	canvas=document.getElementById("canvas");
 	context = canvas.getContext("2d");
 
@@ -143,11 +146,17 @@ function Start() {
 		//put obstacles in (i=3,j=3) and (i=3,j=4) and (i=3,j=5), (i=6,j=1) and (i=6,j=2)
 		for (var j = 0; j < 10; j++) {
 			if (
-				(i == 3 && j == 3) ||
 				(i == 3 && j == 4) ||
 				(i == 3 && j == 5) ||
+				(i == 3 && j == 6) ||
+				(i == 4 && j == 6) ||
+				(i == 5 && j == 6) ||
+				(i == 5 && j == 5) ||
+				(i == 5 && j == 4) ||
 				(i == 6 && j == 1) ||
-				(i == 6 && j == 2)
+				(i == 6 && j == 2) ||
+				(i == 5 && j == 2)
+
 			) {
 				board[i][j] = 4;
 			}else if((i == 0 && j == 0) ||
@@ -287,10 +296,7 @@ function Draw() {
 				context.fillStyle = "black"; //color
 				context.fill();
 			}else if (board[i][j] == 4) {
-				context.beginPath();
-				context.rect(center.x - 30, center.y - 30, 60, 60);
-				context.fillStyle = "grey"; //color
-				context.fill();
+				context.drawImage(wall,center.x , center.y );
 			} else if (board[i][j] == 5) {
 				context.beginPath();
 				context.arc(center.x, center.y, 10, 0, 2 * Math.PI); // circle
