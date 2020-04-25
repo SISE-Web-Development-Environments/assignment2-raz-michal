@@ -49,7 +49,7 @@ $(document).ready(function() {
 		} else {
 			var e3 = document.getElementById("login");
 			e3.style.display = 'none';
-			var e4 = document.getElementById("gamewindow");
+			var e4 = document.getElementById("choosesettings");
 			e4.style.display = 'block';
 		}
 	});

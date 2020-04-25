@@ -124,6 +124,30 @@
 </div>
 
 
+<!-- GAME SETTINGS WINDOW-->
+<div id = "choosesettings" class="changedDivs" style="display:none">
+	<form class="form">
+		<input id="moveup" type="text" placeholder="moveup" onkeydown="saveUp(event)"/>
+		<input id="movedown" type="text" placeholder="movedown " onkeydown="saveDown(event)"/>
+		<input id="moveright" type="text" placeholder="moveright" onkeydown="saveRight(event)"/>
+		<input id="moveleft" type="text" placeholder="moveleft" onkeydown="saveLeft(event)"/>
+		<label for="colorfive">Select color for 5 points ball:</label>
+		<input type="color" id="colorfive" name="colorfive">
+		<label for="colorfifteen">Select color for 15 points ball:</label>
+		<input type="color" id="colorfifteen" name="colorfifteen">
+		<label for="colortwentyfive">Select color for 25 points ball:</label>
+		<input type="color" id="colortwentyfive" name="colortwentyfive">
+		<label for="numofballs">choose the amount of balls (between 50 and 90):</label>
+		<input type="number" id="numofballs" name="numofballs" min="50" max="90">
+		<label for="gametime">choose game time in seconds (minimum 60 sec):</label>
+		<input type="number" id="gametime" name="gametime" min="60">
+		<label for="numofghosts">choose the amount of ghosts (between 1 and 4):</label>
+		<input type="number" id="numofghosts" name="numofghosts" min="1" max="4">
+		<button id="btnRandom">choose random settings</button>
+		<button id="btnSaveSettings">save settings & start game</button>
+	</form>
+</div>
+
 <footer id="footer" class="footerclass">
 	<p> This site belongs to Michal Ezrets and Raz Klein. you can contact us via e-mail: razkl@post.bgu.ac.il and michalez@post.bgu.ac.il<p/>
 </footer>
