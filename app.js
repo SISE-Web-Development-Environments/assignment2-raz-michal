@@ -74,7 +74,7 @@ $(document).ready(function () {
     newClock = new Image();
     newClock.src = "src/clock.png";
     medicine = new Image();
-    medicine.src = "src/medicine.png";
+    medicine.src = "src/madicine.png";
     canvas = document.getElementById("canvas");
     context = canvas.getContext("2d");
     audio.pause();
@@ -369,7 +369,7 @@ function Draw() {
             } else if (board[i][j] == 3) {
                 context.drawImage(newClock, center.x - 30, center.y - 30, 60, 60);
             } else if (board[i][j] == 8) {
-                context.drawImage(medicine, center.x - 10, center.y - 10, 20, 20);
+                context.drawImage(medicine, center.x - 30, center.y - 30, 60, 60);
             }
         }
     }
@@ -403,6 +403,7 @@ function UpdatePosition() {
         ghostTouch();
     } else if (board[shape.i][shape.j] == 3) {
         time_left += 30;
+        alert("you have earned extra time :) ");
         board[shape.i][shape.j] = 2;
     } else if (board[shape.i][shape.j] > 4) {
         if (board[shape.i][shape.j] == 5) {
