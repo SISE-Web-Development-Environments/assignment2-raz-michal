@@ -223,6 +223,19 @@ button{
 }
  #canvas{
 	 background-image:url("src/Wiki-background.jpg");
-	 width: 39%;
+	 width: 100%;
 	 float: none;
  }
+
+.game-column {
+	float: left;
+	width: 45%;
+	padding: 5px;
+}
+
+/* Clear floats after image containers */
+.game-row::after {
+	content: "";
+	clear: both;
+	display: table;
+}
