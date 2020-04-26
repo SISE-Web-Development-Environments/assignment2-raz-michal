@@ -254,7 +254,7 @@ function Start() {
         false
     );
     interval = setInterval(UpdatePosition, 100);
-    ghostsInterval = setInterval(moveAllTheGhosts, 500);
+    ghostsInterval = setInterval(moveAllTheGhosts, 600);
 }
 
 function findRandomEmptyCell(board) {
@@ -263,6 +263,16 @@ function findRandomEmptyCell(board) {
     while (board[i][j] != 0) {
         i = Math.floor(Math.random() * 9 + 1);
         j = Math.floor(Math.random() * 9 + 1);
+    }
+    return [i, j];
+}
+
+function findRandomEmptyCellInMiddle(board) {
+    var i = Math.floor(Math.random() * 6 + 2);
+    var j = Math.floor(Math.random() * 6 + 2);
+    while (board[i][j] != 0) {
+        i = Math.floor(Math.random() * 6 + 2);
+        j = Math.floor(Math.random() * 6 + 2);
     }
     return [i, j];
 }
@@ -383,6 +393,7 @@ function UpdatePosition() {
         ghostTouch();
     } else if (board[shape.i][shape.j] == 3) {
         time_left += 30;
+        board[shape.i][shape.j] = 2;
     } else if (board[shape.i][shape.j] > 4) {
         if (board[shape.i][shape.j] == 5) {
             score += 5;
@@ -391,8 +402,11 @@ function UpdatePosition() {
         } else if (board[shape.i][shape.j] == 7) {
             score += 25;
         }
+        board[shape.i][shape.j] = 2;
+    }else{
+        board[shape.i][shape.j] = 2;
     }
-    board[shape.i][shape.j] = 2;
+
     var currentTime = new Date();
     time_elapsed = (currentTime - start_time) / 1000;
     time_left = gametime - time_elapsed;
@@ -415,7 +429,7 @@ function UpdatePosition() {
 function ghostTouch() {
     if (life_left > 0) {
         alert("You have been eaten by a ghost!");
-        var emptyCell = findRandomEmptyCell(board);
+        var emptyCell = findRandomEmptyCellInMiddle(board);
         board[emptyCell[0]][emptyCell[1]] = 2;
         life_left--;
         score -= 10;
@@ -548,5 +562,3 @@ function updateTime(){
 
 
 }
-
-
