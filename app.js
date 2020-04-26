@@ -9,7 +9,7 @@ var canvas;
 var life_left;
 var maxScore;
 var time_left;
-var audio = new Audio('src/pacmanSong.mp3');
+var audio= new Audio('src/pacmanSong.mp3');
 
 var moveup;
 var movedown;
@@ -22,7 +22,7 @@ var numofballs;
 var gametime;
 var numofghosts;
 
-var pacmanAngle = 4;
+var pacmanAngle = 2;
 var wall;
 var newClock;
 var medicine;
@@ -88,7 +88,7 @@ $(document).ready(function () {
     colortwentyfive = "green"
     numofballs = 70;
     gametime = 60;
-    numofghosts = 1;
+    numofghosts = 3;
     life_left = 5;
     maxScore = (numofballs * 0.6 * 5) + (numofballs * 0.3 * 15) + (numofballs * 0.1 * 25);
     time_left = gametime;
@@ -263,6 +263,7 @@ function Start() {
     );
     interval = setInterval(UpdatePosition, 100);
     ghostsInterval = setInterval(moveAllTheGhosts, 600);
+
 }
 
 function findRandomEmptyCell() {
@@ -403,7 +404,7 @@ function UpdatePosition() {
         ghostTouch();
     } else if (board[shape.i][shape.j] == 3) {
         time_left += 30;
-        alert("you have earned extra time :) ");
+        //alert("you have earned extra time :) ");
         board[shape.i][shape.j] = 2;
     } else if (board[shape.i][shape.j] > 4) {
         if (board[shape.i][shape.j] == 5) {
@@ -414,7 +415,7 @@ function UpdatePosition() {
             score += 25;
         } else if (board[shape.i][shape.j] == 8) {
            life_left++;
-            alert("you have earned extra life :) ");
+            //alert("you have earned extra life :) ");
         }
         board[shape.i][shape.j] = 2;
     }else{
@@ -444,13 +445,10 @@ function UpdatePosition() {
 
 function ghostTouch() {
     if (life_left > 0) {
-        alert("You have been eaten by a ghost!");
+        window.alert("You have been eaten by a ghost!");
         resetGhostLocation();
         var emptyCell = CellInMiddle(board);
         board[emptyCell[0]][emptyCell[1]] = 2;
-        life_left--;
-        score -= 10;
-        Draw();
         life_left--;
         score -= 10;
         board[shape.i][shape.j]=0;
