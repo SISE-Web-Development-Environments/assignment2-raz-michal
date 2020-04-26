@@ -392,7 +392,9 @@ function UpdatePosition() {
             score += 25;
         }
     }
-    board[shape.i][shape.j] = 2;
+    if(board[shape.i][shape.j] != 1){
+		board[shape.i][shape.j] == 2
+	}
     var currentTime = new Date();
     time_elapsed = (currentTime - start_time) / 1000;
     time_left = gametime - time_elapsed;
@@ -415,7 +417,7 @@ function UpdatePosition() {
 function ghostTouch() {
     if (life_left > 0) {
         alert("You have been eaten by a ghost!");
-        var emptyCell = findRandomEmptyCell(board);
+        var emptyCell = findRandomEmptyCellInMiddle(board);
         board[emptyCell[0]][emptyCell[1]] = 2;
         life_left--;
         score -= 10;
@@ -550,5 +552,13 @@ function updateTime(){
 }
 
 
-
+function findRandomEmptyCellInMiddle(board) {
+	var i = Math.floor(Math.random() * 6 + 2);
+	var j = Math.floor(Math.random() * 6 + 2);
+	while (board[i][j] != 0) {
+		i = Math.floor(Math.random() * 6 + 2);
+		j = Math.floor(Math.random() * 6 + 2);
+	}
+	return [i, j];
+}
 
