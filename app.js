@@ -267,7 +267,7 @@ function findRandomEmptyCell(board) {
     return [i, j];
 }
 
-function findRandomEmptyCellInMiddle(board) {
+function CellInMiddle(board) {
     var i = Math.floor(Math.random() * 6 + 2);
     var j = Math.floor(Math.random() * 6 + 2);
     while (board[i][j] != 0) {
@@ -429,11 +429,11 @@ function UpdatePosition() {
 function ghostTouch() {
     if (life_left > 0) {
         alert("You have been eaten by a ghost!");
-        var emptyCell = findRandomEmptyCellInMiddle(board);
+        resetGhostLocation();
+        var emptyCell = CellInMiddle(board);
         board[emptyCell[0]][emptyCell[1]] = 2;
         life_left--;
         score -= 10;
-        resetGhostLocation();
         Draw();
     } else {
         audio.pause();
