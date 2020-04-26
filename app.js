@@ -24,6 +24,8 @@ var numofghosts;
 
 var pacmanAngle = 2;
 var wall;
+var ghost;
+var angel;
 var newClock;
 var medicine;
 var ghost1_x = -1;
@@ -34,10 +36,12 @@ var ghost3_x = -1;
 var ghost3_y = -1;
 var ghost4_x = -1;
 var ghost4_y = -1;
+var angel_x = -1;
+var angel_y = -1;
 
 var interval;
 var ghostsInterval;
-var timeInteval;
+var angelInteval;
 
 
 function saveUp(event) {
@@ -71,10 +75,14 @@ function saveLeft(event) {
 $(document).ready(function () {
     wall = new Image();
     wall.src = "src/wall.png";
+    ghost = new Image();
+    ghost.src = "src/ghost.png";
     newClock = new Image();
     newClock.src = "src/clock.png";
     medicine = new Image();
     medicine.src = "src/madicine.png";
+    angel = new Image();
+    angel.src = "src/angel.png";
     canvas = document.getElementById("canvas");
     context = canvas.getContext("2d");
     audio.pause();
@@ -86,9 +94,9 @@ $(document).ready(function () {
     colorfive = "red";
     colorfifteen = "blue"
     colortwentyfive = "green"
-    numofballs = 70;
+    numofballs = 30;
     gametime = 60;
-    numofghosts = 3;
+    numofghosts = 1;
     life_left = 5;
     maxScore = (numofballs * 0.6 * 5) + (numofballs * 0.3 * 15) + (numofballs * 0.1 * 25);
     time_left = gametime;
@@ -198,7 +206,7 @@ function Start() {
                 board[i][j] = 4;
             } else if
             ((i == 0 && j == 0) || (i == 0 && j == 9) && numofghosts > 1 || (i == 9 && j == 9) && numofghosts > 2 || (i == 9 && j == 0) && numofghosts > 3) {
-                board[i][j] = 1;
+                board[i][j] = 0;
             } else {
                 var randomNum = Math.random();
                 if (randomNum <= (1.0 * food_remain) / cnt) {
@@ -246,23 +254,14 @@ function Start() {
     }
     var emptyCell = findRandomEmptyCell();
     board[emptyCell[0]][emptyCell[1]] = 3;
-    keysDown = {};
-    addEventListener(
-        "keydown",
-        function (e) {
-            keysDown[e.keyCode] = true;
-        },
-        false
-    );
-    addEventListener(
-        "keyup",
-        function (e) {
-            keysDown[e.keyCode] = false;
-        },
-        false
-    );
+    var emptyCell = findRandomEmptyCell();
+    angel_x=emptyCell[0];
+    angel_y=emptyCell[1];
+    intializeGhostPosition();
+    initiateKeyListener();
     interval = setInterval(UpdatePosition, 100);
     ghostsInterval = setInterval(moveAllTheGhosts, 600);
+    angelInteval = setInterval(angelMove,250);
 
 }
 
@@ -339,17 +338,6 @@ function Draw() {
                 }
                 context.fillStyle = "black"; //color
                 context.fill();
-            } else if (board[i][j] == 1) {
-                // pint ghost
-                context.beginPath();
-                context.arc(center.x, center.y, 20, 0.15 * Math.PI, 1.85 * Math.PI); // half circle
-                context.lineTo(center.x, center.y);
-                context.fillStyle = "red"; //color
-                context.fill();
-                context.beginPath();
-                context.arc(center.x + 5, center.y - 15, 3, 0, 2 * Math.PI); // circle
-                context.fillStyle = "black"; //color
-                context.fill();
             } else if (board[i][j] == 4) {
                 context.drawImage(wall, center.x - 30, center.y - 30, 60, 60);
             } else if (board[i][j] == 5) {
@@ -373,6 +361,21 @@ function Draw() {
                 context.drawImage(medicine, center.x - 30, center.y - 30, 60, 60);
             }
         }
+    }
+    if (ghost1_x!=-1) {
+        context.drawImage(ghost, ghost1_x*60, ghost1_y*60, 50, 50);
+    }
+    if (ghost2_x!=-1) {
+        context.drawImage(ghost, ghost2_x*60, ghost2_y*60, 50, 50);
+    }
+    if (ghost3_x!=-1) {
+        context.drawImage(ghost, ghost3_x*60, ghost3_y*60, 50, 50);
+    }
+    if (ghost4_x!=-1) {
+        context.drawImage(ghost, ghost4_x*60, ghost4_y*60, 50, 50);
+    }
+    if (angel_x!=-1) {
+        context.drawImage(angel, angel_x * 60, angel_y * 60, 50, 50);
     }
 }
 
@@ -400,7 +403,8 @@ function UpdatePosition() {
             pacmanAngle = 4;
         }
     }
-    if (board[shape.i][shape.j] == 1) {
+    if ((shape.i==ghost1_x && shape.j == ghost1_y) || (shape.i==ghost2_x && shape.j == ghost2_y) ||
+        (shape.i==ghost3_x && shape.j == ghost3_y) || (shape.i==ghost4_x && shape.j == ghost4_y)) {
         ghostTouch();
     } else if (board[shape.i][shape.j] == 3) {
         time_left += 30;
@@ -414,21 +418,18 @@ function UpdatePosition() {
         } else if (board[shape.i][shape.j] == 7) {
             score += 25;
         } else if (board[shape.i][shape.j] == 8) {
-           life_left++;
+            life_left++;
             //alert("you have earned extra life :) ");
         }
-        board[shape.i][shape.j] = 2;
-    }else{
-        board[shape.i][shape.j] = 2;
     }
-
+    board[shape.i][shape.j] = 2;
     var currentTime = new Date();
     time_elapsed = (currentTime - start_time) / 1000;
     time_left = gametime - time_elapsed;
     if (score >= 20 && time_left <= 10) {
         pac_color = "grey";
     }
-    if (score >= 400) {
+    if (score>=maxScore+50) {
         window.clearInterval(interval);
         window.clearInterval(ghostsInterval);
         window.alert("Game completed, you win!");
@@ -443,12 +444,22 @@ function UpdatePosition() {
 }
 
 
+function initiateKeyListener() {
+    keysDown = {};
+    addEventListener("keydown", function (e) {
+        keysDown[e.keyCode] = true;
+    }, false);
+    addEventListener("keyup", function (e) {
+        keysDown[e.keyCode] = false;
+    }, false);
+    return keysDown;
+}
+
 function ghostTouch() {
     if (life_left > 0) {
         window.alert("You have been eaten by a ghost!");
-        resetGhostLocation();
-        var emptyCell = CellInMiddle(board);
-        board[emptyCell[0]][emptyCell[1]] = 2;
+        initiateKeyListener();
+        intializeGhostPosition();
         life_left--;
         score -= 10;
         board[shape.i][shape.j]=0;
@@ -457,34 +468,11 @@ function ghostTouch() {
         shape.i= emptyCell[0];
         shape.j= emptyCell[1];
         position=3;
-        keysDown = {};
-        addEventListener("keydown", function (e) {
-            keysDown[e.keyCode] = true;
-        }, false);
-        addEventListener("keyup", function (e) {
-            keysDown[e.keyCode] = false;
-        }, false);
     } else {
         audio.pause();
         alert("Sorry Game Over, you lost");
         window.clearInterval(ghostsInterval);
         window.clearInterval(interval);
-    }
-}
-
-
-function resetGhostLocation() {
-    intializeGhostPosition();
-    for (var i = 0; i < 10; i++) {
-        for (var j = 0; j < 10; j++) {
-            if ((i == 0 && j == 0) ||  (i == 0 && j == 9) && numofghosts > 1 || (i == 9 && j == 9) && numofghosts > 2 || (i == 9 && j == 0) && numofghosts > 3) {
-                board[i][j] = 1
-            } else if (board[i][j] == 1) {
-                board[i][j] = 0
-            } else if (board[i][j] == 2) {
-                board[i][j] = 0;
-            }
-        }
     }
 }
 
@@ -521,16 +509,29 @@ function moveAllTheGhosts() {
     if (numofghosts >= 4) {
         FindBestPathForGhost(4, ghost4_x, ghost4_y);
     }
+}
 
-
+function getTheBestMove(X, Y) {
+    if (!checkMoveForGhost(X, Y)) {
+        return 10000;
+    }
+    return Math.sqrt((shape.i - X) * (shape.i - X) + (shape.j - Y) * (shape.j - Y));
+}
+function checkMoveForGhost(X, Y) {
+    if (X < 0 || Y < 0 || X > 9 || Y > 9 || board[X][Y]==4) {
+        return false;
+    }
+    return true;
 }
 
 function FindBestPathForGhost(ghostNumber, X, Y) {
+    if (X < 0 || Y < 0 || X > 9 || Y > 9) {
+        return;
+    }
     var left = getTheBestMove(X - 1, Y);
-    var down = getTheBestMove(X, Y - 1);
+    var down = getTheBestMove( X, Y - 1);
     var right = getTheBestMove(X + 1, Y);
-    var up = getTheBestMove(X, Y + 1);
-    board[X][Y] = 0;
+    var up = getTheBestMove( X, Y + 1);
     var bestMove = Math.min(left, down, right, up);
     if (bestMove == left){
         moveSingleGhost(ghostNumber, X - 1, Y);
@@ -547,14 +548,7 @@ function FindBestPathForGhost(ghostNumber, X, Y) {
 }
 
 
-function getTheBestMove(X, Y) {
-    if (!checkMoveForGhost(X, Y)) {
-        return 10000;
-    }
-    return Math.sqrt((shape.i - X) * (shape.i - X) + (shape.j - Y) * (shape.j - Y));
-}
-
-function checkMoveForGhost(X, Y) {
+function checkMoveForAngel(X, Y) {
     if (X < 0 || Y < 0 || X > 9 || Y > 9 || board[X][Y] == 4 || (X == ghost1_x && Y == ghost1_y) ||
         (X == ghost2_x && Y == ghost2_y) || (X == ghost3_x && Y == ghost3_y) || (X == ghost4_x && Y == ghost4_y)) {
         return false;
@@ -576,11 +570,28 @@ function moveSingleGhost(ghostNumber, X, Y) {
         ghost4_x = X;
         ghost4_y = Y;
     }
-    if (board[X][Y]==2){
+    if (shape.i==X && shape.j==Y){
         ghostTouch();
     }
-    else {
-        board[X][Y] = 1;
+}
+
+function angelMove(){
+    if( angel_x!=-1 && angel_y!=-1) {
+        var move = Math.floor(Math.random() * Math.floor(4));
+        if (move == 3 && checkMoveForAngel(angel_x - 1, angel_y)) {
+            angel_x--;
+        } else if (move == 1 && checkMoveForAngel(angel_x, angel_y + 1)) {
+            angel_y++;
+        } else if (move == 4 && checkMoveForAngel(angel_x + 1, angel_y)) {
+            angel_x++;
+        } else if (move == 0 && checkMoveForAngel(angel_x, angel_y - 1)) {
+            angel_y--;
+        }
+        if (board[angel_x][angel_y] == 2) {
+            score += 50;
+            angel_x = -1;
+            angel_y = -1;
+        }
     }
 }
 
