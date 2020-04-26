@@ -223,7 +223,7 @@ function Start() {
         }
     }
     while (food_remain > 0) {
-        var emptyCell = findRandomEmptyCell(board);
+        var emptyCell = findRandomEmptyCell();
         food_remain--;
         if (s_food > 0) {
             s_food--;
@@ -236,7 +236,7 @@ function Start() {
             board[emptyCell[0]][emptyCell[1]] = 7;
         }
     }
-    var emptyCell = findRandomEmptyCell(board);
+    var emptyCell = findRandomEmptyCell();
     board[emptyCell[0]][emptyCell[1]] = 3;
     keysDown = {};
     addEventListener(
@@ -257,7 +257,7 @@ function Start() {
     ghostsInterval = setInterval(moveAllTheGhosts, 600);
 }
 
-function findRandomEmptyCell(board) {
+function findRandomEmptyCell() {
     var i = Math.floor(Math.random() * 9 + 1);
     var j = Math.floor(Math.random() * 9 + 1);
     while (board[i][j] != 0) {
@@ -267,7 +267,7 @@ function findRandomEmptyCell(board) {
     return [i, j];
 }
 
-function CellInMiddle(board) {
+function findRandomEmptyCellInMiddle() {
     var i = Math.floor(Math.random() * 6 + 2);
     var j = Math.floor(Math.random() * 6 + 2);
     while (board[i][j] != 0) {
@@ -415,10 +415,12 @@ function UpdatePosition() {
     }
     if (score >= 400) {
         window.clearInterval(interval);
+        window.clearInterval(ghostsInterval);
         window.alert("Game completed, you win!");
         audio.pause();
     } else if (time_left <= 0) {
         window.clearInterval(interval);
+        window.clearInterval(ghostsInterval);
         alert("time out, your time is out");
     } else {
         Draw();
@@ -435,6 +437,21 @@ function ghostTouch() {
         life_left--;
         score -= 10;
         Draw();
+        life_left--;
+        score -= 10;
+        board[shape.i][shape.j]=0;
+        var emptyCell = findRandomEmptyCellInMiddle();
+        board[emptyCell[0]][emptyCell[1]] = 2;
+        shape.i= emptyCell[0];
+        shape.j= emptyCell[1];
+        position=3;
+        keysDown = {};
+        addEventListener("keydown", function (e) {
+            keysDown[e.keyCode] = true;
+        }, false);
+        addEventListener("keyup", function (e) {
+            keysDown[e.keyCode] = false;
+        }, false);
     } else {
         audio.pause();
         alert("Sorry Game Over, you lost");
@@ -559,6 +576,4 @@ function updateTime(){
     start_time=new Date();
     time_elapsed = (currentTime - start_time) / 1000;
     time_left = gametime - time_elapsed;
-
-
 }
