@@ -175,7 +175,7 @@ function Start() {
     var m_food = food_remain * 0.3;
     var l_food = food_remain * 0.1;
     var pacman_remain = 1;
-    var medeicine = 2;
+    var medeicine = 1;
     start_time = new Date();
     intializeGhostPosition();
     for (var i = 0; i < 10; i++) {
@@ -240,9 +240,8 @@ function Start() {
             board[emptyCell[0]][emptyCell[1]] = 7;
         }
     }
-    while (medeicine > 0){
+    if(medeicine > 0){
         var emptyCell = findRandomEmptyCell();
-        medeicine--;
         board[emptyCell[0]][emptyCell[1]] = 8;
     }
     var emptyCell = findRandomEmptyCell();
@@ -370,7 +369,7 @@ function Draw() {
             } else if (board[i][j] == 3) {
                 context.drawImage(newClock, center.x - 30, center.y - 30, 60, 60);
             } else if (board[i][j] == 8) {
-                context.drawImage(medicine, center.x - 30, center.y - 30, 60, 60);
+                context.drawImage(medicine, center.x - 10, center.y - 10, 20, 20);
             }
         }
     }
@@ -412,6 +411,9 @@ function UpdatePosition() {
             score += 15;
         } else if (board[shape.i][shape.j] == 7) {
             score += 25;
+        } else if (board[shape.i][shape.j] == 8) {
+           life_left++;
+            alert("you have earned extra life :) ");
         }
         board[shape.i][shape.j] = 2;
     }else{
