@@ -5,7 +5,6 @@ var score;
 var pac_color;
 var start_time;
 var time_elapsed;
-var interval;
 var canvas;
 var life_left;
 var maxScore;
@@ -34,7 +33,10 @@ var ghost3_x = -1;
 var ghost3_y = -1;
 var ghost4_x = -1;
 var ghost4_y = -1;
+
+var interval;
 var ghostsInterval;
+var timeInteval;
 
 
 function saveUp(event) {
@@ -158,6 +160,7 @@ $(document).ready(function () {
 
 // game function
 
+
 function Start() {
     audio.play();
     board = new Array();
@@ -170,22 +173,7 @@ function Start() {
     var l_food = food_remain * 0.1;
     var pacman_remain = 1;
     start_time = new Date();
-    if (numofghosts >= 1) {
-        ghost1_x = 0;
-        ghost1_y = 0;
-    }
-    if (numofghosts >= 2) {
-        ghost2_x = 0;
-        ghost2_y = 9;
-    }
-    if (numofghosts >= 3) {
-        ghost3_x = 9;
-        ghost3_y = 9;
-    }
-    if (numofghosts == 4) {
-        ghost4_x = 9;
-        ghost4_y = 0;
-    }
+    intializeGhostPosition();
     for (var i = 0; i < 10; i++) {
         board[i] = new Array();
         //put obstacles in (i=3,j=3) and (i=3,j=4) and (i=3,j=5), (i=6,j=1) and (i=6,j=2)
@@ -265,8 +253,8 @@ function Start() {
         },
         false
     );
-    interval = setInterval(UpdatePosition, 250);
-    ghostsInterval = setInterval(moveAllTheGhosts, 250);
+    interval = setInterval(UpdatePosition, 100);
+    ghostsInterval = setInterval(moveAllTheGhosts, 500);
 }
 
 function findRandomEmptyCell(board) {
@@ -391,21 +379,8 @@ function UpdatePosition() {
             pacmanAngle = 4;
         }
     }
-
     if (board[shape.i][shape.j] == 1) {
-        if (life_left > 0) {
-            alert("You have been eaten by a ghost!");
-            resetGhostLocation();
-            var emptyCell = findRandomEmptyCell(board);
-            board[emptyCell[0]][emptyCell[1]] = 2;
-            life_left--;
-            score -= 10;
-        } else {
-            audio.pause();
-            alert("Sorry Game Over, you lost");
-            window.clearInterval(ghostsInterval);
-            window.clearInterval(interval);
-        }
+        ghostTouch();
     } else if (board[shape.i][shape.j] == 3) {
         time_left += 30;
     } else if (board[shape.i][shape.j] > 4) {
@@ -436,20 +411,59 @@ function UpdatePosition() {
     }
 }
 
+
+function ghostTouch() {
+    if (life_left > 0) {
+        alert("You have been eaten by a ghost!");
+        var emptyCell = findRandomEmptyCell(board);
+        board[emptyCell[0]][emptyCell[1]] = 2;
+        life_left--;
+        score -= 10;
+        resetGhostLocation();
+        Draw();
+    } else {
+        audio.pause();
+        alert("Sorry Game Over, you lost");
+        window.clearInterval(ghostsInterval);
+        window.clearInterval(interval);
+    }
+}
+
+
 function resetGhostLocation() {
+    intializeGhostPosition();
     for (var i = 0; i < 10; i++) {
         for (var j = 0; j < 10; j++) {
-            if ((i == 0 && j == 0) ||
-                (i == 0 && j == 9) && numofghosts > 1 ||
-                (i == 9 && j == 9) && numofghosts > 2 ||
-                (i == 9 && j == 0) && numofghosts > 3) {
-                board[i][j] == 1
+            if ((i == 0 && j == 0) ||  (i == 0 && j == 9) && numofghosts > 1 || (i == 9 && j == 9) && numofghosts > 2 || (i == 9 && j == 0) && numofghosts > 3) {
+                board[i][j] = 1
             } else if (board[i][j] == 1) {
-                board[i][j] == 0
+                board[i][j] = 0
+            } else if (board[i][j] == 2) {
+                board[i][j] = 0;
             }
         }
     }
 }
+
+function intializeGhostPosition() {
+    if (numofghosts >= 1) {
+        ghost1_x = 0;
+        ghost1_y = 0;
+    }
+    if (numofghosts >= 2) {
+        ghost2_x = 0;
+        ghost2_y = 9;
+    }
+    if (numofghosts >= 3) {
+        ghost3_x = 9;
+        ghost3_y = 9;
+    }
+    if (numofghosts == 4) {
+        ghost4_x = 9;
+        ghost4_y = 0;
+    }
+}
+
 
 function moveAllTheGhosts() {
     if (numofghosts >= 1) {
@@ -475,14 +489,18 @@ function FindBestPathForGhost(ghostNumber, X, Y) {
     var up = getTheBestMove(X, Y + 1);
     board[X][Y] = 0;
     var bestMove = Math.min(left, down, right, up);
-    if (bestMove == left)
+    if (bestMove == left){
         moveSingleGhost(ghostNumber, X - 1, Y);
-    else if (bestMove == down)
+    }
+    else if (bestMove == down) {
         moveSingleGhost(ghostNumber, X, Y - 1);
-    else if (bestMove == right)
+    }
+    else if (bestMove == right) {
         moveSingleGhost(ghostNumber, X + 1, Y);
-    else if (bestMove == up)
+    }
+    else if (bestMove == up) {
         moveSingleGhost(ghostNumber, X, Y + 1);
+    }
 }
 
 
@@ -515,7 +533,20 @@ function moveSingleGhost(ghostNumber, X, Y) {
         ghost4_x = X;
         ghost4_y = Y;
     }
-    board[X][Y] = 1;
+    if (board[X][Y]==2){
+        ghostTouch();
+    }
+    else {
+        board[X][Y] = 1;
+    }
+}
+
+function updateTime(){
+    start_time=new Date();
+    time_elapsed = (currentTime - start_time) / 1000;
+    time_left = gametime - time_elapsed;
+
+
 }
 
 
