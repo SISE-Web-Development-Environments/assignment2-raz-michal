@@ -25,6 +25,7 @@ var numofghosts;
 var pacmanAngle = 4;
 var wall;
 var newClock;
+var medicine;
 var ghost1_x = -1;
 var ghost1_y = -1;
 var ghost2_x = -1;
@@ -72,6 +73,8 @@ $(document).ready(function () {
     wall.src = "src/wall.png";
     newClock = new Image();
     newClock.src = "src/clock.png";
+    medicine = new Image();
+    medicine.src = "src/medicine.png";
     canvas = document.getElementById("canvas");
     context = canvas.getContext("2d");
     audio.pause();
@@ -85,7 +88,7 @@ $(document).ready(function () {
     colortwentyfive = "green"
     numofballs = 70;
     gametime = 60;
-    numofghosts = 4;
+    numofghosts = 1;
     life_left = 5;
     maxScore = (numofballs * 0.6 * 5) + (numofballs * 0.3 * 15) + (numofballs * 0.1 * 25);
     time_left = gametime;
@@ -172,6 +175,7 @@ function Start() {
     var m_food = food_remain * 0.3;
     var l_food = food_remain * 0.1;
     var pacman_remain = 1;
+    var medeicine = 2;
     start_time = new Date();
     intializeGhostPosition();
     for (var i = 0; i < 10; i++) {
@@ -235,6 +239,11 @@ function Start() {
             l_food--;
             board[emptyCell[0]][emptyCell[1]] = 7;
         }
+    }
+    while (medeicine > 0){
+        var emptyCell = findRandomEmptyCell();
+        medeicine--;
+        board[emptyCell[0]][emptyCell[1]] = 8;
     }
     var emptyCell = findRandomEmptyCell();
     board[emptyCell[0]][emptyCell[1]] = 3;
@@ -360,6 +369,8 @@ function Draw() {
                 context.fill();
             } else if (board[i][j] == 3) {
                 context.drawImage(newClock, center.x - 30, center.y - 30, 60, 60);
+            } else if (board[i][j] == 8) {
+                context.drawImage(medicine, center.x - 30, center.y - 30, 60, 60);
             }
         }
     }
