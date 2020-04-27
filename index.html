@@ -35,7 +35,7 @@
 <body>
 
 <!-- WELLCOME WINDOW-->
-<!--
+
 <div id="welcome" class="changedDivs" style="display:inline">
     </br>
     </br>
@@ -53,9 +53,9 @@
 	</br>
 	</br>
 </div>
--->
+
 <!-- REGISTER WINDOW-->
-<!--
+
 <div id = "register" class="changedDivs" style="display:none">
     <form class="form">
         <input id="username" type="text" placeholder="username"/>
@@ -68,9 +68,9 @@
         <p class="message">Already registered? <a href="#" onclick="show_only_login()">Sign In</a></p>
 	</form>
 </div>
--->
+
 <!-- LOGIN WINDOW-->
-<!--
+
 <div id="login" class="changedDivs" style="display: none">
 	<br/>
 	<br/>
@@ -89,10 +89,10 @@
 	<br/>
 </div>
 </body>
--->
+
 </body>
 <!-- ABOUT WINDOW-->
-<!--
+
 <div id="myModal" class="modal">
 	<div class="modal-content">
 		<span class="close">&times;</span><br/>
@@ -107,11 +107,11 @@
 		</p>
 	</div>
 </div>
--->
+
 <!-- GAME WINDOW-->
 <div class="game-row" style="text-align:center">
 	<div class="game-column">
-		<div id="gameInfo" class="changedDivs">
+		<div id="gameInfo" class="changedDivs" style="display:none">
 			<div id="score">
 				<label for="lblScore">SCORE:</label>
 				<input id="lblScore" type="text" />
@@ -120,18 +120,31 @@
 				<label for="lblTime">TIME:</label>
 				<input id="lblTime" type="text" />
 			</div>
+			<div>
+			<label for="lblInfo">Info:</label>
+			<input id="lblInfo" type="text" />
+			</div>
+			<div id="info2">
+				<label for="lblInfoballs">Number of balls:</label>
+				<input id="lblInfoballs" type="text" />
+			</div>
+			<div id="info4">
+				<label for="lblInfoRoundTime">Singel round total time:</label>
+				<input id="lblInfoRoundTime" type="text" />
+			</div>
+
 		</div>
 	</div>
 	<div class="game-column">
-		<div id="gamewindow" class="changedDivs">
+		<div id="gamewindow" class="changedDivs" style="display:none">
 			<div id="game">
 				<canvas id="canvas" height="600" width="600"></canvas>
 			</div>
 		</div>
 	</div>
 </div>
+
 <!-- GAME SETTINGS WINDOW-->
-<!--
 <div id = "choosesettings" class="changedDivs" style="display:none">
 	<form class="form">
 		<input id="moveup" type="text" placeholder="moveup" onkeydown="saveUp(event)"/>
@@ -154,7 +167,7 @@
 		<button id="btnSaveSettings">save settings & start game</button>
 	</form>
 </div>
--->
+
 <!-- GANE END WINDOW-->
 <div id="gameEndModal" class="modal">
 	<div class="modal-content">

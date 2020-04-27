@@ -1,4 +1,4 @@
-/**
+
 var database = new Array();
 database[0] = {username: "p", password: "p"};
 
@@ -119,4 +119,4 @@ function show_about() {
 
 
 
-*/
+

@@ -87,7 +87,7 @@ $(document).ready(function () {
     context = canvas.getContext("2d");
     audio.pause();
 
-    /* DELETE IT !!!! */
+    /* DELETE IT !!!!
     moveup = 38;
     moveright = 39;
     movedown = 40;
@@ -101,10 +101,10 @@ $(document).ready(function () {
     life_left = 5;
     maxScore = (numofballs * 0.6 * 5) + (numofballs * 0.3 * 15) + (numofballs * 0.1 * 25);
     time_left = gametime;
-    /* DELETE IT!!! */
+    DELETE IT!!! */
 
 
-/*
+
         $("#btnSaveSettings").click(function (event) {
             event.preventDefault();
             moveup = $("#moveup").val();
@@ -139,19 +139,24 @@ $(document).ready(function () {
                 e1.style.display = 'none';
                 var e2 = document.getElementById("gamewindow");
                 e2.style.display = 'block';
+                var e3 = document.getElementById("gameInfo");
+                e3.style.display = 'block';
+                lblInfoballs.value = numofballs;
+                lblInfoRoundTime.value = gametime;
+                lblInfo.value = "the game is on :) ";
                 Start();
             }
         });
 
-        $("#btnSaveRandom").click(function (event) {
+        $("#btnRandom").click(function (event) {
             event.preventDefault();
             moveup = 38;
             movedown = 40;
             moveright = 39;
             moveleft = 37;
-            colorfive = "#ddeedd";
-            colorfifteen = "#c2d4dd";
-            colortwentyfive = "#b0aac0";
+            colorfive = "blue";
+            colorfifteen = "purple"
+            colortwentyfive = "red"
             numofballs = Math.floor(Math.random() * 41) + 50;
             gametime = Math.floor(Math.random() * 120) + 60;
             numofghosts = Math.floor(Math.random() * 4) + 1;
@@ -162,11 +167,19 @@ $(document).ready(function () {
             e1.style.display = 'none';
             var e2 = document.getElementById("gamewindow");
             e2.style.display = 'block';
+            var e3 = document.getElementById("gameInfo");
+            e3.style.display = 'block';
+            lblInfoballs.value = numofballs;
+            //lblInfo25ball.value = colortwentyfive;
+            //lblInfo15ball.value = colorfifteen;
+            //lblInfo5ball.value = colorfive;
+            lblInfoRoundTime.value = gametime;
+            lblInfo.value = "the game is on :) ";
             Start();
         });
 
-*/
-    Start();
+
+    //Start();
 
     var endGameModel = document.getElementById("gameEndModal");
     window.onclick = function (event) {
@@ -185,6 +198,28 @@ $(document).ready(function () {
 
 // game function
 
+/*
+    <div id="info">
+				<label for="lblInfo">Info:</label>
+				<input id="lblInfo" type="text" />
+			</div>
+    <div id="info2">
+        <label for="lblInfoballs">Number of balls:</label>
+        <input id="lblInfoballs" type="text" />
+    </div>
+    <div id="info3">
+        <label for="lblInfo25ball">25 point:</label>
+        <input id="lblInfo25ball" type="color" />
+        <label for="lblInfo15ball">15 point:</label>
+        <input id="lblInfo15ball" type="color" />
+        <label for="lblInfo5ball">5 point:</label>
+        <input id="lblInfo5ball" type="color" />
+    </div>
+    <div id="info4">
+        <label for="lblInfoRoundTime">Singel round total time:</label>
+        <input id="lblInfoRoundTime" type="text" />
+    </div>
+ */
 
 function Start() {
     audio.play();
@@ -192,7 +227,7 @@ function Start() {
     score = 0;
     pac_color = "yellow";
     var cnt = 100;
-    var food_remain = 50;
+    var food_remain = numofballs;
     var s_food = food_remain * 0.6;
     var m_food = food_remain * 0.3;
     var l_food = food_remain * 0.1;
@@ -422,7 +457,8 @@ function UpdatePosition() {
         ghostTouch();
     } else if (board[shape.i][shape.j] == 3) {
         time_left += 30;
-        //alert("you have earned extra time :) ");
+        //window.alert("you have earned extra time :) ");
+        lblInfo.value = "you earned extra time :)";
         board[shape.i][shape.j] = 2;
     } else if (board[shape.i][shape.j] > 4) {
         if (board[shape.i][shape.j] == 5) {
@@ -433,15 +469,17 @@ function UpdatePosition() {
             score += 25;
         } else if (board[shape.i][shape.j] == 8) {
             life_left++;
-            //alert("you have earned extra life :) ");
+            lblInfo.value = "you earned extra life :)";
+            //window.alert("you have earned extra life :) ");
         }
     }
     board[shape.i][shape.j] = 2;
     var currentTime = new Date();
     time_elapsed = (currentTime - start_time) / 1000;
     time_left = gametime - time_elapsed;
-    if (score >= 20 && time_left <= 10) {
+    if (time_left <= 10) {
         pac_color = "grey";
+        lblInfo.value = "ou ou your time is running out";
     }
     if (score>=maxScore+50) {
         window.clearInterval(interval);
@@ -474,6 +512,7 @@ function initiateKeyListener() {
 function ghostTouch() {
     if (life_left > 0) {
         window.alert("You have been eaten by a ghost!");
+        lblInfo.value = "don't let them eat you!";
         initiateKeyListener();
         intializeGhostPosition();
         life_left--;
@@ -621,11 +660,14 @@ function updateTime(){
 function endGame() {
     lblFScore.value = score;
     if (score >= 100 && life_left > 0) {
+        lblInfo.value = "good job :) ";
         lblpresent1.value = "WINNER!!!";
     }else if(score < 100 && life_left > 0){
+        lblInfo.value = "maybe next time";
         lblpresent1.value = "You are better then" + score + " points!";
     }else{
-        lblpresent1.value = "LOSER!!!";
+        lblInfo.value = "maybe next time";
+        lblpresent1.value = "LOSER";
     }
     var e1 = document.getElementById("gameEndModal");
     e1.style.display = 'block';
