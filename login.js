@@ -83,6 +83,8 @@ function show_only_welcome() {
 	e4.style.display = 'none';
 	var e5 = document.getElementById("gamewindow");
 	e5.style.display = 'none';
+	var e6 = document.getElementById("gameEndModal");
+	e6.style.display = 'none';
 }
 
 function show_only_register() {
@@ -114,6 +116,8 @@ function show_about() {
 	e2.style.display = 'none';
 	var e3 = document.getElementById("login");
 	e3.style.display = 'none';
+	var e4 = document.getElementById("myModal");
+	e4.style.display = 'block';
 
 }
 

@@ -170,9 +170,9 @@ $(document).ready(function () {
             var e3 = document.getElementById("gameInfo");
             e3.style.display = 'block';
             lblInfoballs.value = numofballs;
-            //lblInfo25ball.value = colortwentyfive;
-            //lblInfo15ball.value = colorfifteen;
-            //lblInfo5ball.value = colorfive;
+            //lblInfo25ball.value = "blue";
+            //lblInfo15ball.value = "purple";
+            //lblInfo5ball.value = "red";
             lblInfoRoundTime.value = gametime;
             lblInfo.value = "the game is on :) ";
             Start();
@@ -181,45 +181,10 @@ $(document).ready(function () {
 
     //Start();
 
-    var endGameModel = document.getElementById("gameEndModal");
-    window.onclick = function (event) {
-        if (event.target == endGameModel) {
-            endGameModel.style.display = 'none';
-        }
-    }
-
-    var span = document.getElementsByClassName("close")[0];
-    span.onclick = function () {
-        endGameModel.style.display = 'none';
-    }
-
 });
 
 
 // game function
-
-/*
-    <div id="info">
-				<label for="lblInfo">Info:</label>
-				<input id="lblInfo" type="text" />
-			</div>
-    <div id="info2">
-        <label for="lblInfoballs">Number of balls:</label>
-        <input id="lblInfoballs" type="text" />
-    </div>
-    <div id="info3">
-        <label for="lblInfo25ball">25 point:</label>
-        <input id="lblInfo25ball" type="color" />
-        <label for="lblInfo15ball">15 point:</label>
-        <input id="lblInfo15ball" type="color" />
-        <label for="lblInfo5ball">5 point:</label>
-        <input id="lblInfo5ball" type="color" />
-    </div>
-    <div id="info4">
-        <label for="lblInfoRoundTime">Singel round total time:</label>
-        <input id="lblInfoRoundTime" type="text" />
-    </div>
- */
 
 function Start() {
     audio.play();
