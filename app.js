@@ -86,6 +86,7 @@ $(document).ready(function () {
     canvas = document.getElementById("canvas");
     context = canvas.getContext("2d");
     audio.pause();
+
     /* DELETE IT !!!! */
     moveup = 38;
     moveright = 39;
@@ -103,7 +104,7 @@ $(document).ready(function () {
     /* DELETE IT!!! */
 
 
-    /*
+/*
         $("#btnSaveSettings").click(function (event) {
             event.preventDefault();
             moveup = $("#moveup").val();
@@ -164,8 +165,21 @@ $(document).ready(function () {
             Start();
         });
 
-    */
+*/
     Start();
+
+    var endGameModel = document.getElementById("gameEndModal");
+    window.onclick = function (event) {
+        if (event.target == endGameModel) {
+            endGameModel.style.display = 'none';
+        }
+    }
+
+    var span = document.getElementsByClassName("close")[0];
+    span.onclick = function () {
+        endGameModel.style.display = 'none';
+    }
+
 });
 
 
@@ -432,12 +446,14 @@ function UpdatePosition() {
     if (score>=maxScore+50) {
         window.clearInterval(interval);
         window.clearInterval(ghostsInterval);
-        window.alert("Game completed, you win!");
+        //window.alert("Game completed, you win!");
         audio.pause();
+        endGame();
     } else if (time_left <= 0) {
         window.clearInterval(interval);
         window.clearInterval(ghostsInterval);
-        alert("time out, your time is out");
+        //window.alert("time out, your time is out");
+        endGame();
     } else {
         Draw();
     }
@@ -470,7 +486,8 @@ function ghostTouch() {
         position=3;
     } else {
         audio.pause();
-        alert("Sorry Game Over, you lost");
+        //window.alert("Sorry Game Over, you lost");
+        endGame();
         window.clearInterval(ghostsInterval);
         window.clearInterval(interval);
     }
@@ -600,3 +617,21 @@ function updateTime(){
     time_elapsed = (currentTime - start_time) / 1000;
     time_left = gametime - time_elapsed;
 }
+
+function endGame() {
+    lblFScore.value = score;
+    if (score >= 100 && life_left > 0) {
+        lblpresent1.value = "WINNER!!!";
+    }else if(score < 100 && life_left > 0){
+        lblpresent1.value = "You are better then" + score + " points!";
+    }else{
+        lblpresent1.value = "LOSER!!!";
+    }
+    var e1 = document.getElementById("gameEndModal");
+    e1.style.display = 'block';
+    var e2 = document.getElementById("gamewindow");
+    e2.style.display = 'none';
+    var e3 = document.getElementById("gameInfo");
+    e3.style.display = 'none';
+}
+

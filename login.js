@@ -56,9 +56,10 @@ $(document).ready(function() {
 	});
 
 
-	var model = document.getElementById("myModal");
+	var aboutModel = document.getElementById("myModal");
+	var endGameModel = document.getElementById("gameEndModal");
 	window.onclick = function (event) {
-		if (event.target == model) {
+		if (event.target == aboutModel || event.target == endGameModel) {
 			show_only_welcome()
 		}
 	}
@@ -113,10 +114,7 @@ function show_about() {
 	e2.style.display = 'none';
 	var e3 = document.getElementById("login");
 	e3.style.display = 'none';
-	var e4 = document.getElementById("myModal");
-	e4.style.display = 'block';
-	var e5 = document.getElementById("gamewindow");
-	e5.style.display = 'none';
+
 }
 
 
