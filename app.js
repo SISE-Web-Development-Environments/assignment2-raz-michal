@@ -86,26 +86,9 @@ $(document).ready(function () {
     canvas = document.getElementById("canvas");
     context = canvas.getContext("2d");
     audio.pause();
-    /* DELETE IT !!!! */
-    moveup = 38;
-    moveright = 39;
-    movedown = 40;
-    moveleft = 37;
-    colorfive = "red";
-    colorfifteen = "blue"
-    colortwentyfive = "green"
-    numofballs = 30;
-    gametime = 60;
-    numofghosts = 1;
-    life_left = 5;
-    maxScore = (numofballs * 0.6 * 5) + (numofballs * 0.3 * 15) + (numofballs * 0.1 * 25);
-    time_left = gametime;
-    /* DELETE IT!!! */
-
-
-    /*
         $("#btnSaveSettings").click(function (event) {
             event.preventDefault();
+            show_only_game();
             moveup = $("#moveup").val();
             movedown = $("#movedown").val();
             moveright = $("#moveright").val();
@@ -142,8 +125,9 @@ $(document).ready(function () {
             }
         });
 
-        $("#btnSaveRandom").click(function (event) {
+        $("#btnRandom").click(function (event) {
             event.preventDefault();
+            show_only_game();
             moveup = 38;
             movedown = 40;
             moveright = 39;
@@ -163,8 +147,6 @@ $(document).ready(function () {
             e2.style.display = 'block';
             Start();
         });
-
-    */
     Start();
 });
 
@@ -178,7 +160,7 @@ function Start() {
     score = 0;
     pac_color = "yellow";
     var cnt = 100;
-    var food_remain = 50;
+    var food_remain = numofballs;
     var s_food = food_remain * 0.6;
     var m_food = food_remain * 0.3;
     var l_food = food_remain * 0.1;
@@ -259,8 +241,8 @@ function Start() {
     angel_y=emptyCell[1];
     intializeGhostPosition();
     initiateKeyListener();
-    interval = setInterval(UpdatePosition, 100);
-    ghostsInterval = setInterval(moveAllTheGhosts, 600);
+    interval = setInterval(UpdatePosition, 150);
+    ghostsInterval = setInterval(moveAllTheGhosts, 1500);
     angelInteval = setInterval(angelMove,250);
 
 }
@@ -599,4 +581,19 @@ function updateTime(){
     start_time=new Date();
     time_elapsed = (currentTime - start_time) / 1000;
     time_left = gametime - time_elapsed;
+}
+
+function show_only_game() {
+    var e1 = document.getElementById("welcome");
+    e1.style.display = 'none';
+    var e2 = document.getElementById("register");
+    e2.style.display = 'none';
+    var e3 = document.getElementById("login");
+    e3.style.display = 'none';
+    var e4 = document.getElementById("myModal");
+    e4.style.display = 'none';
+    var e5 = document.getElementById("myGame");
+    e5.style.display = 'block';
+    var e6 = document.getElementById("choosesettings");
+    e6.style.display = 'none';
 }
