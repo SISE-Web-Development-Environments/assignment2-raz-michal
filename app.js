@@ -86,25 +86,6 @@ $(document).ready(function () {
     canvas = document.getElementById("canvas");
     context = canvas.getContext("2d");
     audio.pause();
-
-    /* DELETE IT !!!!
-    moveup = 38;
-    moveright = 39;
-    movedown = 40;
-    moveleft = 37;
-    colorfive = "red";
-    colorfifteen = "blue"
-    colortwentyfive = "green"
-    numofballs = 30;
-    gametime = 60;
-    numofghosts = 1;
-    life_left = 5;
-    maxScore = (numofballs * 0.6 * 5) + (numofballs * 0.3 * 15) + (numofballs * 0.1 * 25);
-    time_left = gametime;
-    DELETE IT!!! */
-
-
-
         $("#btnSaveSettings").click(function (event) {
             event.preventDefault();
             show_only_game();
@@ -140,11 +121,6 @@ $(document).ready(function () {
                 e1.style.display = 'none';
                 var e2 = document.getElementById("gamewindow");
                 e2.style.display = 'block';
-                var e3 = document.getElementById("gameInfo");
-                e3.style.display = 'block';
-                lblInfoballs.value = numofballs;
-                lblInfoRoundTime.value = gametime;
-                lblInfo.value = "the game is on :) ";
                 Start();
             }
         });
@@ -156,9 +132,9 @@ $(document).ready(function () {
             movedown = 40;
             moveright = 39;
             moveleft = 37;
-            colorfive = "blue";
-            colorfifteen = "purple"
-            colortwentyfive = "red"
+            colorfive = "#ddeedd";
+            colorfifteen = "#c2d4dd";
+            colortwentyfive = "#b0aac0";
             numofballs = Math.floor(Math.random() * 41) + 50;
             gametime = Math.floor(Math.random() * 120) + 60;
             numofghosts = Math.floor(Math.random() * 4) + 1;
@@ -169,22 +145,9 @@ $(document).ready(function () {
             e1.style.display = 'none';
             var e2 = document.getElementById("gamewindow");
             e2.style.display = 'block';
-            var e3 = document.getElementById("gameInfo");
-            e3.style.display = 'block';
-            lblInfoballs.value = numofballs;
-            //lblInfo25ball.value = "blue";
-            //lblInfo15ball.value = "purple";
-            //lblInfo5ball.value = "red";
-            lblInfoRoundTime.value = gametime;
-            lblInfo.value = "the game is on :) ";
             Start();
         });
     Start();
-});
-
-
-    //Start();
-
 });
 
 
@@ -278,8 +241,8 @@ function Start() {
     angel_y=emptyCell[1];
     intializeGhostPosition();
     initiateKeyListener();
-    interval = setInterval(UpdatePosition, 100);
-    ghostsInterval = setInterval(moveAllTheGhosts, 600);
+    interval = setInterval(UpdatePosition, 150);
+    ghostsInterval = setInterval(moveAllTheGhosts, 1500);
     angelInteval = setInterval(angelMove,250);
 
 }
@@ -304,6 +267,9 @@ function findRandomEmptyCellInMiddle() {
     return [i, j];
 }
 
+/**
+ * @return {number}
+ */
 function GetKeyPressed() {
     if (keysDown[moveup]) {
         return 1;
@@ -438,29 +404,25 @@ function UpdatePosition() {
             score += 25;
         } else if (board[shape.i][shape.j] == 8) {
             life_left++;
-            lblInfo.value = "you earned extra life :)";
-            //window.alert("you have earned extra life :) ");
+            //alert("you have earned extra life :) ");
         }
     }
     board[shape.i][shape.j] = 2;
     var currentTime = new Date();
     time_elapsed = (currentTime - start_time) / 1000;
     time_left = gametime - time_elapsed;
-    if (time_left <= 10) {
+    if (score >= 20 && time_left <= 10) {
         pac_color = "grey";
-        lblInfo.value = "ou ou your time is running out";
     }
     if (score>=maxScore+50) {
         window.clearInterval(interval);
         window.clearInterval(ghostsInterval);
-        //window.alert("Game completed, you win!");
+        window.alert("Game completed, you win!");
         audio.pause();
-        endGame();
     } else if (time_left <= 0) {
         window.clearInterval(interval);
         window.clearInterval(ghostsInterval);
-        //window.alert("time out, your time is out");
-        endGame();
+        alert("time out, your time is out");
     } else {
         Draw();
     }
@@ -481,7 +443,6 @@ function initiateKeyListener() {
 function ghostTouch() {
     if (life_left > 0) {
         window.alert("You have been eaten by a ghost!");
-        lblInfo.value = "don't let them eat you!";
         initiateKeyListener();
         intializeGhostPosition();
         life_left--;
@@ -624,28 +585,6 @@ function updateTime(){
     time_elapsed = (currentTime - start_time) / 1000;
     time_left = gametime - time_elapsed;
 }
-
-function endGame() {
-    lblFScore.value = score;
-    if (score >= 100 && life_left > 0) {
-        lblInfo.value = "good job :) ";
-        lblpresent1.value = "WINNER!!!";
-    }else if(score < 100 && life_left > 0){
-        lblInfo.value = "maybe next time";
-        lblpresent1.value = "You are better then" + score + " points!";
-    }else{
-        lblInfo.value = "maybe next time";
-        lblpresent1.value = "LOSER";
-    }
-    var e1 = document.getElementById("gameEndModal");
-    e1.style.display = 'block';
-    var e2 = document.getElementById("gamewindow");
-    e2.style.display = 'none';
-    var e3 = document.getElementById("gameInfo");
-    e3.style.display = 'none';
-}
-
-
 
 function show_only_game() {
     var e1 = document.getElementById("welcome");
