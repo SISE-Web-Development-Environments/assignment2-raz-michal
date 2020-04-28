@@ -113,11 +113,23 @@
     <div class="form" style="float: left; margin-left:10px">
         <div id="score">
             <label for="lblScore">SCORE:</label>
-            <input id="lblScore" type="text"/>
+            <input id="lblScore" type="text" />
         </div>
         <div id="time">
             <label for="lblTime">TIME:</label>
-            <input id="lblTime" type="text"/>
+            <input id="lblTime" type="text" />
+        </div>
+        <div id="info">
+            <label for="lblInfo">Info:</label>
+            <input id="lblInfo" type="text" />
+        </div>
+        <div id="info2">
+            <label for="lblInfoballs">Number of balls:</label>
+            <input id="lblInfoballs" type="text" />
+        </div>
+        <div id="info4">
+            <label for="lblInfoRoundTime">Singel round total time:</label>
+            <input id="lblInfoRoundTime" type="text" />
         </div>
         <!--
         <div id="gameKeys">
@@ -165,6 +177,22 @@
         <button id="btnRandom">choose random settings</button>
         <button id="btnSaveSettings">save settings & start game</button>
     </form>
+</div>
+
+<!-- GANE END WINDOW-->
+<div id="gameEndModal" class="modal">
+    <div class="modal-content">
+        <center><b>GAME ENDED </b></center>
+        <p><b>
+            <div id="Finalscore">
+                <label for="lblFScore">FINAL SCORE: </label>
+                <input id="lblFScore" type="text" />
+            </div>
+            <div id="winOrLoos">
+                <input id="lblpresent1" type="text" />
+            </div>
+        </b></p>
+    </div>
 </div>
 
 <footer id="footer" class="footerclass">
