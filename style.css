@@ -127,7 +127,6 @@ button{
 .form {
 	position: relative;
 	display: inline-block;
-	top: 15px;
 	z-index: 1;
 	background: #FFFFFF;
 	max-width: 360px;
@@ -273,7 +272,8 @@ button{
 	width: 23%
 }
 #lblName{
-	width: 49%
+	width: 49%;
+	height: 50%;
 }
 #lblScore{
 	width: 49%
@@ -290,8 +290,6 @@ button{
 #lblInfoRoundTime{
 	width: 49%
 }
-
-
 
 
 

@@ -31,16 +31,16 @@ var ghost;
 var angel;
 var newClock;
 var medicine;
-var ghost1_x = -1;
-var ghost1_y = -1;
-var ghost2_x = -1;
-var ghost2_y = -1;
-var ghost3_x = -1;
-var ghost3_y = -1;
-var ghost4_x = -1;
-var ghost4_y = -1;
-var angel_x = -1;
-var angel_y = -1;
+var ghost1_x;
+var ghost1_y;
+var ghost2_x;
+var ghost2_y;
+var ghost3_x;
+var ghost3_y;
+var ghost4_x;
+var ghost4_y;
+var angel_x;
+var angel_y;
 
 var interval;
 var ghostsInterval;
@@ -183,6 +183,17 @@ $(document).ready(function () {
 
 
 function Start() {
+    ghost1_x = -1;
+    ghost1_y = -1;
+    ghost2_x = -1;
+    ghost2_y = -1;
+    ghost3_x = -1;
+    ghost3_y = -1;
+    ghost4_x = -1;
+    ghost4_y = -1;
+    angel_x = -1;
+    angel_y = -1;
+    context.clearRect(0, 0, canvas.width, canvas.height);
     audio.play();
     board = new Array();
     score = 0;
@@ -404,19 +415,19 @@ function Draw() {
         }
     }
     if (ghost1_x!=-1) {
-        context.drawImage(ghost, ghost1_x*40, ghost1_y*40, 50, 50);
+        context.drawImage(ghost, ghost1_x*40, ghost1_y*40, 40, 40);
     }
     if (ghost2_x!=-1) {
-        context.drawImage(ghost, ghost2_x*40, ghost2_y*40, 50, 50);
+        context.drawImage(ghost, ghost2_x*40, ghost2_y*40, 40, 40);
     }
     if (ghost3_x!=-1) {
-        context.drawImage(ghost, ghost3_x*40, ghost3_y*40, 50, 50);
+        context.drawImage(ghost, ghost3_x*40, ghost3_y*40, 40, 40);
     }
     if (ghost4_x!=-1) {
-        context.drawImage(ghost, ghost4_x*40, ghost4_y*40, 50, 50);
+        context.drawImage(ghost, ghost4_x*40, ghost4_y*40, 40, 40);
     }
     if (angel_x!=-1) {
-        context.drawImage(angel, angel_x *40, angel_y *40, 50, 50);
+        context.drawImage(angel, angel_x *40, angel_y *40, 40, 40);
     }
 }
 
@@ -652,6 +663,7 @@ function endGame() {
     window.clearInterval(ghostsInterval);
     window.clearInterval(interval);
     window.clearInterval(angelInteval);
+    context.clearRect(0, 0, canvas.width, canvas.height);
     if (score >= 100 && life_left > 0) {
         lblInfo.value = "INFO: good job :) ";
         lblpresent1.value = "WINNER!!!";
@@ -748,6 +760,7 @@ function show_only_login() {
     e5.style.display = 'none';
     var e6 = document.getElementById("choosesettings");
     e6.style.display = 'none';
+    CloseGameSettings();
 }
 
 function show_about() {
@@ -763,12 +776,14 @@ function show_about() {
     e5.style.display = 'none';
     var e6 = document.getElementById("choosesettings");
     e6.style.display = 'none';
+    CloseGameSettings()
 }
 
 function CloseGameSettings() {
     window.clearInterval(interval);
     window.clearInterval(ghostsInterval);
     window.clearInterval(angelInteval);
+    context.clearRect(0, 0, canvas.width, canvas.height);
     audio.pause();
     life_left = 5;
     lblLifeLeft.value = "Life left: " + 5;
