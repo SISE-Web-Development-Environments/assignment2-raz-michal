@@ -1,7 +1,7 @@
 
 var database = new Array();
 database[0] = {username: "p", password: "p"};
-
+var currentUser;
 
 $(document).ready(function() {
 	// menu and login functions:
@@ -52,6 +52,7 @@ $(document).ready(function() {
 			e3.style.display = 'none';
 			var e4 = document.getElementById("choosesettings");
 			e4.style.display = 'block';
+			lblName.value = thisuser;
 		}
 	});
 
