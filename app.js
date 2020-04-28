@@ -93,72 +93,80 @@ $(document).ready(function () {
 
 
     $("#btnSaveSettings").click(function (event) {
-            event.preventDefault();
-            colorfive = $("#colorfive").val();
-            colorfifteen = $("#colorfifteen").val();
-            colortwentyfive = $("#colortwentyfive").val();
-            numofballs = $("#numofballs").val();
-            gametime = $("#gametime").val();
-            numofghosts = $("#numofghosts").val();
-            life_left = 5;
-            time_left = gametime;
-            if (moveup == '' || movedown == '' || moveright == '' || moveleft == '' || colorfive == '' || colorfifteen == '' || colortwentyfive == '' || numofballs == '' || gametime == '' || numofghosts == '') {
-                alert("Please fill all fields!");
-                show_game_settings();
-            } else if (numofballs < 50 || numofballs >90) {
-                alert("Number of balls must be between 50 and 90!");
-                show_game_settings();
-            } else if (gametime < 60) {
-                alert("Minimal game time is 60 seconds!");
-                show_game_settings();
-            } else if (numofghosts < 1 || numofghosts > 4) {
-                alert("Number of ghosts must be between 1 and 4!");
-                show_game_settings();
-            }else if (colorfive==colorfifteen || colorfifteen == colortwentyfive || colortwentyfive == colorfive) {
-                alert("The colors of the balls must be different!");
-                show_game_settings();
-            }else if (moveup==movedown || movedown == moveright || moveright == moveleft || moveleft == moveup || moveup == moveright || movedown == moveleft) {
-                alert("The moving keys must be different!");
-                show_game_settings();
-            } else {
-                document.getElementById('username').value = null;
-                document.getElementById('password').value = null;
-                lblInfoballs.value = "Number Of Balls: "+ numofballs;
-                lblInfoRoundTime.value = "Total Time: "+ gametime;
-                lblInfo.value = "INFO: the game is on :) ";
-                lblLifeLeft.value =  "Life left: "+ life_left;
-                show_only_game();
-                Start();
-            }
-        });
-
-        $("#btnRandom").click(function (event) {
-            event.preventDefault();
-            show_only_game();
-            moveup = 38;
-            movedown = 40;
-            moveright = 39;
-            moveleft = 37;
-            colorfive = "blue";
-            colorfifteen = "purple";
-            colortwentyfive = "red";
-            numofballs = Math.floor(Math.random() * 41) + 50;
-            gametime = Math.floor(Math.random() * 120) + 60;
-            numofghosts = Math.floor(Math.random() * 4) + 1;
-            life_left = 5;
-            time_left = gametime;
+        event.preventDefault();
+        colorfive = $("#colorfive").val();
+        colorfifteen = $("#colorfifteen").val();
+        colortwentyfive = $("#colortwentyfive").val();
+        numofballs = $("#numofballs").val();
+        gametime = $("#gametime").val();
+        numofghosts = $("#numofghosts").val();
+        life_left = 5;
+        time_left = gametime;
+        if (moveup == '' || movedown == '' || moveright == '' || moveleft == '' || colorfive == '' || colorfifteen == '' || colortwentyfive == '' || numofballs == '' || gametime == '' || numofghosts == '') {
+            alert("Please fill all fields!");
+            show_game_settings();
+        } else if (numofballs < 50 || numofballs >90) {
+            alert("Number of balls must be between 50 and 90!");
+            show_game_settings();
+        } else if (gametime < 60) {
+            alert("Minimal game time is 60 seconds!");
+            show_game_settings();
+        } else if (numofghosts < 1 || numofghosts > 4) {
+            alert("Number of ghosts must be between 1 and 4!");
+            show_game_settings();
+        }else if (colorfive==colorfifteen || colorfifteen == colortwentyfive || colortwentyfive == colorfive) {
+            alert("The colors of the balls must be different!");
+            show_game_settings();
+        }else if (moveup==movedown || movedown == moveright || moveright == moveleft || moveleft == moveup || moveup == moveright || movedown == moveleft) {
+            alert("The moving keys must be different!");
+            show_game_settings();
+        } else {
+            document.getElementById('username').value = null;
+            document.getElementById('password').value = null;
             lblInfoballs.value = "Number Of Balls: "+ numofballs;
             lblInfoRoundTime.value = "Total Time: "+ gametime;
             lblInfo.value = "INFO: the game is on :) ";
-            lblLifeLeft.value = "Life left: "+ life_left;
+            lblLifeLeft.value =  "Life left: "+ life_left;
+            show_only_game();
             Start();
-        });
-    $("#newGameBtn").click(function (event) {
-        event.preventDefault();
-        CloseGameSettings();
-        Start();
-        Draw();
+        }
     });
+
+    $("#btnRandom").click(function (event) {
+        event.preventDefault();
+        show_only_game();
+        moveup = 38;
+        movedown = 40;
+        moveright = 39;
+        moveleft = 37;
+        colorfive = "blue";
+        colorfifteen = "purple";
+        colortwentyfive = "red";
+        numofballs = Math.floor(Math.random() * 41) + 50;
+        gametime = Math.floor(Math.random() * 120) + 60;
+        numofghosts = Math.floor(Math.random() * 4) + 1;
+        life_left = 5;
+        time_left = gametime;
+        lblInfoballs.value = "Number Of Balls: "+ numofballs;
+        lblInfoRoundTime.value = "Total Time: "+ gametime;
+        lblInfo.value = "INFO: the game is on :) ";
+        lblLifeLeft.value = "Life left: "+ life_left;
+        show_only_game();
+        Start();
+    });
+
+    $("#btnNewGame").click(function (event) {
+        var e1 = document.getElementById("gameEndModal");
+        e1.style.display = 'none';
+        show_game_settings();
+    });
+
+    $("#btnOut").click(function (event) {
+        var e1 = document.getElementById("gameEndModal");
+        e1.style.display = 'none';
+        show_only_welcome();
+    });
+
 });
 
 
@@ -631,12 +639,13 @@ function endGame() {
     }else{
         lblInfo.value = "INFO: maybe next time";
         lblpresent1.value = "LOSER!";
-        audio.pause();
     }
     var e1 = document.getElementById("gameEndModal");
     e1.style.display = 'block';
     var e2 = document.getElementById("myGame");
     e2.style.display = 'none';
+    var e7 = document.getElementById("gamewindow");
+    e7.style.display = 'none';
 }
 
 function show_only_game() {
@@ -717,11 +726,9 @@ function show_only_login() {
     e5.style.display = 'none';
     var e6 = document.getElementById("choosesettings");
     e6.style.display = 'none';
-    CloseGameSettings();
 }
 
 function show_about() {
-
     var e1 = document.getElementById("welcome");
     e1.style.display = 'none';
     var e2 = document.getElementById("register");
@@ -734,7 +741,6 @@ function show_about() {
     e5.style.display = 'none';
     var e6 = document.getElementById("choosesettings");
     e6.style.display = 'none';
-    CloseGameSettings();
 }
 
 function CloseGameSettings() {
@@ -746,17 +752,6 @@ function CloseGameSettings() {
     lblLifeLeft.value = "Life left: " + 5;
 }
 
-var gamemodal = document.getElementById('gameEndModal');
-window.onclick = function (event) {
-    event.preventDefault();
-    if (event.target == gamemodal) {
-        show_only_welcome()
-    }
-}
-var span = document.getElementById('close');
-span.onclick = function () {
-    show_only_welcome()
-}
 
 
 
