@@ -228,6 +228,7 @@ button{
 	padding: 5px;
 }
 
+.myGame
 /* Clear floats after image containers */
 .game-row::after {
 	content: "";
@@ -258,3 +259,41 @@ button{
 #colortwentyfive{
 	width: 32%
 }
+
+#lblup{
+	width: 23%
+}
+#lbldown{
+	width: 23%
+}
+#lblright{
+	width: 23%
+}
+#lblleft{
+	width: 23%
+}
+#lblName{
+	width: 49%
+}
+#lblScore{
+	width: 49%
+}
+#lblTime{
+	width: 49%
+}
+#lblLifeLeft{
+	width: 49%
+}
+#lblInfoballs{
+	width: 49%
+}
+#lblInfoRoundTime{
+	width: 49%
+}
+
+
+
+
+
+
+

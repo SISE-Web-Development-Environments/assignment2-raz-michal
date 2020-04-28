@@ -52,7 +52,7 @@ $(document).ready(function() {
 			e3.style.display = 'none';
 			var e4 = document.getElementById("choosesettings");
 			e4.style.display = 'block';
-			lblName.value = thisuser;
+			lblName.value = "USER: "+ thisuser;
 		}
 	});
 
@@ -78,64 +78,6 @@ $(document).ready(function() {
 });
 
 
-// menu function
-function show_only_welcome() {
-	var e1 = document.getElementById("welcome");
-	e1.style.display = 'block';
-	var e2 = document.getElementById("register");
-	e2.style.display = 'none';
-	var e3 = document.getElementById("login");
-	e3.style.display = 'none';
-	var e4 = document.getElementById("myModal");
-	e4.style.display = 'none';
-	var e5 = document.getElementById("myGame");
-	e5.style.display = 'none';
-	var e6 = document.getElementById("choosesettings");
-	e6.style.display = 'none';
-}
-
-function show_only_register() {
-	var e1 = document.getElementById("welcome");
-	e1.style.display = 'none';
-	var e2 = document.getElementById("register");
-	e2.style.display = 'block';
-	var e3 = document.getElementById("login");
-	e3.style.display = 'none';
-	var e5 = document.getElementById("myGame");
-	e5.style.display = 'none';
-	var e6 = document.getElementById("choosesettings");
-	e6.style.display = 'none';
-}
-
-function show_only_login() {
-	var e1 = document.getElementById("welcome");
-	e1.style.display = 'none';
-	var e2 = document.getElementById("register");
-	e2.style.display = 'none';
-	var e3 = document.getElementById("login");
-	e3.style.display = 'block';
-	var e5 = document.getElementById("myGame");
-	e5.style.display = 'none';
-	var e6 = document.getElementById("choosesettings");
-	e6.style.display = 'none';
-
-}
-
-function show_about() {
-	var e1 = document.getElementById("welcome");
-	e1.style.display = 'none';
-	var e2 = document.getElementById("register");
-	e2.style.display = 'none';
-	var e3 = document.getElementById("login");
-	e3.style.display = 'none';
-	var e4 = document.getElementById("myModal");
-	e4.style.display = 'block';
-	var e5 = document.getElementById("myGame");
-	e5.style.display = 'none';
-	var e6 = document.getElementById("choosesettings");
-	e6.style.display = 'none';
-
-}
 
 
 

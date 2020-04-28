@@ -101,9 +101,9 @@
             <br/>
             Michal Ezrets - 205620974</b>
             <br/>
-            (????)
             <br/>
-            Bla Bla Bla
+            Run away from the ghosts and get as much coins as you can!!
+            <br/>
         </p>
     </div>
 </div>
@@ -111,47 +111,22 @@
 <!-- GAME WINDOW-->
 <div id="myGame" class="game-row" style="display:none" style="text-align:center">
     <div class="form" style="float: left; margin-left:10px">
-        <div id="name">
-            <label for="lblName">User:</label>
             <input id="lblName" type="text" />
-        </div>
-        <div id="score">
-            <label for="lblScore">SCORE:</label>
             <input id="lblScore" type="text" />
-        </div>
-        <div id="time">
-            <label for="lblTime">TIME:</label>
             <input id="lblTime" type="text" />
-        </div>
-        <div id="lives">
-            <label for="lblLifeLeft">Lifes:</label>
             <input id="lblLifeLeft" type="text" />
-        </div>
-        <div id="info">
-            <label for="lblInfo">Info:</label>
             <input id="lblInfo" type="text" />
-        </div>
-        <div id="info2">
-            <label for="lblInfoballs">Number of balls:</label>
             <input id="lblInfoballs" type="text" />
-        </div>
-        <div id="info4">
-            <label for="lblInfoRoundTime">Singel round total time:</label>
             <input id="lblInfoRoundTime" type="text" />
-        </div>
-        <!--
         <div id="gameKeys">
-            <label for="lblUp">UP KEY:</label>
-            <input id="lblUp" type="text"/>
-            <label for="lblDown">DOWN KEY:</label>
-            <input id="lblDown" type="text"/>
-            <label for="lblRight">RIGHT KEY:</label>
-            <input id="lblRight" type="text"/>
-            <label for="lblLeft">LEFT KEY:</label>
-            <input id="lblLeft" type="text"/>
+            <label >Game keys are (Up, Down, Left, Right):</label>
+            </br>
+            <input id="lblup" type="text" placeholder="Up"/>
+            <input id="lbldown" type="text" placeholder="Down"/>
+            <input id="lblleft" type="text" placeholder="Left"/>
+            <input id="lblright" type="text" placeholder="Right"/>
+            <button id = "newGameBtn">Start New Game</button>
         </div>
-        -->
-
     </div>
     <div id="gamewindow" class="changedDivs" >
         <div id="game">
@@ -183,6 +158,7 @@
         <label for="numofghosts">choose the amount of ghosts (between 1 and 4):</label>
         <input type="number" id="numofghosts" name="numofghosts" min="1" max="4">
         <button id="btnRandom">choose random settings</button>
+        </br>
         <button id="btnSaveSettings">save settings & start game</button>
     </form>
 </div>
@@ -190,6 +166,7 @@
 <!-- GANE END WINDOW-->
 <div id="gameEndModal" class="modal">
     <div class="modal-content">
+        <span id="close">&times;</span><br/>
         <center><b>GAME ENDED </b></center>
         <p><b>
             <div id="Finalscore">

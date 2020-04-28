@@ -43,6 +43,7 @@ var interval;
 var ghostsInterval;
 var angelInteval;
 
+
 $(document).ready(function () {
     wall = new Image();
     wall.src = "src/wall.png";
@@ -62,24 +63,32 @@ $(document).ready(function () {
         event.preventDefault();
         moveleft=event.keyCode;
         left.placeholder=event.key;
+        currLeft = document.getElementById('lblleft');
+        currLeft.placeholder=event.key;
     });
     const right = document.getElementById('moveright');
     right.addEventListener("keydown", function(event1) {
         event1.preventDefault();
         moveright=event1.keyCode;
         right.placeholder=event1.key;
+        currRight = document.getElementById('lblright');
+        currRight.placeholder=event1.key;
     });
     const up = document.getElementById('moveup');
     up.addEventListener("keydown", function(event2) {
         event2.preventDefault();
         moveup=event2.keyCode;
         up.placeholder=event2.key;
+        currUp = document.getElementById('lblup');
+        currUp.placeholder=event2.key;
     });
     const down = document.getElementById('movedown');
     down.addEventListener("keydown", function(event3) {
         event3.preventDefault();
         movedown=event3.keyCode;
         down.placeholder=event3.key;
+        currDown = document.getElementById('lbldown');
+        currDown.placeholder=event3.key;
     });
 
 
@@ -114,10 +123,10 @@ $(document).ready(function () {
             } else {
                 document.getElementById('username').value = null;
                 document.getElementById('password').value = null;
-                lblInfoballs.value = numofballs;
-                lblInfoRoundTime.value = gametime;
-                lblInfo.value = "the game is on :) ";
-                lblLifeLeft.value = life_left;
+                lblInfoballs.value = "Number Of Balls: "+ numofballs;
+                lblInfoRoundTime.value = "Total Time: "+ gametime;
+                lblInfo.value = "INFO: the game is on :) ";
+                lblLifeLeft.value =  "Life left: "+ life_left;
                 show_only_game();
                 Start();
             }
@@ -138,13 +147,18 @@ $(document).ready(function () {
             numofghosts = Math.floor(Math.random() * 4) + 1;
             life_left = 5;
             time_left = gametime;
-            lblInfoballs.value = numofballs;
-            lblInfoRoundTime.value = gametime;
-            lblInfo.value = "the game is on :) ";
-            lblLifeLeft.value = life_left;
+            lblInfoballs.value = "Number Of Balls: "+ numofballs;
+            lblInfoRoundTime.value = "Total Time: "+ gametime;
+            lblInfo.value = "INFO: the game is on :) ";
+            lblLifeLeft.value = "Life left: "+ life_left;
             Start();
         });
-
+    $("#newGameBtn").click(function (event) {
+        event.preventDefault();
+        CloseGameSettings();
+        Start();
+        Draw();
+    });
 });
 
 
@@ -302,8 +316,8 @@ function Draw() {
     var background = new Image();
     background.src = "src/Wiki-background.jpg";
     canvas.width = canvas.width; //clean board
-    lblScore.value = score;
-    lblTime.value = time_elapsed;
+    lblScore.value = "SCORE: " + score;
+    lblTime.value = "TIME: "+ time_elapsed;
     for (var i = 0; i < 15; i++) {
         for (var j = 0; j < 15; j++) {
             var center = new Object();
@@ -406,7 +420,7 @@ function UpdatePosition() {
     } else if (board[shape.i][shape.j] == 3) {
         time_left += 30;
         //window.alert("you have earned extra time :) ");
-        lblInfo.value = "you earned extra time :)";
+        lblInfo.value = "INFO: you earned extra time :)";
         board[shape.i][shape.j] = 2;
     } else if (board[shape.i][shape.j] > 4) {
         if (board[shape.i][shape.j] == 5) {
@@ -420,8 +434,8 @@ function UpdatePosition() {
             balls_eaten++;
         } else if (board[shape.i][shape.j] == 8) {
             life_left++;
-            lblInfo.value = "you earned extra life :)";
-            lblLifeLeft.value = life_left;
+            lblInfo.value = "INFO: you earned extra life :)";
+            lblLifeLeft.value =  "Life left: "+  life_left;
             //window.alert("you have earned extra life :) ");
         }
     }
@@ -431,7 +445,7 @@ function UpdatePosition() {
     time_left = gametime - time_elapsed;
     if (time_left <= 15) {
         pac_color = "grey";
-        lblInfo.value = "ou ou time is running out";
+        lblInfo.value = "INFO: you ou time is running out";
     }
     if (balls_eaten == numofballs) {
         endGame();
@@ -467,8 +481,8 @@ function ghostTouch() {
         shape.i= emptyCell[0];
         shape.j= emptyCell[1];
         position=3;
-        lblInfo.value = "don't let them eat you!";
-        lblLifeLeft.value = life_left;
+        lblInfo.value = "INFO: don't let them eat you!";
+        lblLifeLeft.value =  "Life left: "+ life_left;
     } else {
         //window.alert("Sorry Game Over, you lost");
         endGame();
@@ -589,6 +603,7 @@ function angelMove(){
         }
         if (board[angel_x][angel_y] == 2) {
             score += 50;
+            lblInfo.value = "INFO: you earned extra 50 points :)";
             angel_x = -1;
             angel_y = -1;
         }
@@ -608,14 +623,15 @@ function endGame() {
     window.clearInterval(interval);
     window.clearInterval(angelInteval);
     if (score >= 100 && life_left > 0) {
-        lblInfo.value = "good job :) ";
+        lblInfo.value = "INFO: good job :) ";
         lblpresent1.value = "WINNER!!!";
     }else if(score < 100 && life_left > 0){
-        lblInfo.value = "maybe next time";
-        lblpresent1.value = "You are better then" + score + " points!";
+        lblInfo.value = "INFO: maybe next time";
+        lblpresent1.value = "You are better then " + score + " points!";
     }else{
-        lblInfo.value = "maybe next time";
-        lblpresent1.value = "LOSER";
+        lblInfo.value = "INFO: maybe next time";
+        lblpresent1.value = "LOSER!";
+        audio.pause();
     }
     var e1 = document.getElementById("gameEndModal");
     e1.style.display = 'block';
@@ -638,6 +654,7 @@ function show_only_game() {
     e6.style.display = 'none';
     var e7 = document.getElementById("gamewindow");
     e7.style.display = 'block';
+    CloseGameSettings();
 }
 
 function show_game_settings() {
@@ -655,4 +672,91 @@ function show_game_settings() {
     e6.style.display = 'block';
     var e7 = document.getElementById("gamewindow");
     e7.style.display = 'none';
+    CloseGameSettings();
 }
+
+// menu function
+function show_only_welcome() {
+    var e1 = document.getElementById("welcome");
+    e1.style.display = 'block';
+    var e2 = document.getElementById("register");
+    e2.style.display = 'none';
+    var e3 = document.getElementById("login");
+    e3.style.display = 'none';
+    var e4 = document.getElementById("myModal");
+    e4.style.display = 'none';
+    var e5 = document.getElementById("myGame");
+    e5.style.display = 'none';
+    var e6 = document.getElementById("choosesettings");
+    e6.style.display = 'none';
+    CloseGameSettings();
+}
+
+function show_only_register() {
+    var e1 = document.getElementById("welcome");
+    e1.style.display = 'none';
+    var e2 = document.getElementById("register");
+    e2.style.display = 'block';
+    var e3 = document.getElementById("login");
+    e3.style.display = 'none';
+    var e5 = document.getElementById("myGame");
+    e5.style.display = 'none';
+    var e6 = document.getElementById("choosesettings");
+    e6.style.display = 'none';
+    CloseGameSettings();
+}
+
+function show_only_login() {
+    var e1 = document.getElementById("welcome");
+    e1.style.display = 'none';
+    var e2 = document.getElementById("register");
+    e2.style.display = 'none';
+    var e3 = document.getElementById("login");
+    e3.style.display = 'block';
+    var e5 = document.getElementById("myGame");
+    e5.style.display = 'none';
+    var e6 = document.getElementById("choosesettings");
+    e6.style.display = 'none';
+    CloseGameSettings();
+}
+
+function show_about() {
+
+    var e1 = document.getElementById("welcome");
+    e1.style.display = 'none';
+    var e2 = document.getElementById("register");
+    e2.style.display = 'none';
+    var e3 = document.getElementById("login");
+    e3.style.display = 'none';
+    var e4 = document.getElementById("myModal");
+    e4.style.display = 'block';
+    var e5 = document.getElementById("myGame");
+    e5.style.display = 'none';
+    var e6 = document.getElementById("choosesettings");
+    e6.style.display = 'none';
+    CloseGameSettings();
+}
+
+function CloseGameSettings() {
+    window.clearInterval(interval);
+    window.clearInterval(ghostsInterval);
+    window.clearInterval(angelInteval);
+    audio.pause();
+    life_left = 5;
+    lblLifeLeft.value = "Life left: " + 5;
+}
+
+var gamemodal = document.getElementById('gameEndModal');
+window.onclick = function (event) {
+    event.preventDefault();
+    if (event.target == gamemodal) {
+        show_only_welcome()
+    }
+}
+var span = document.getElementById('close');
+span.onclick = function () {
+    show_only_welcome()
+}
+
+
+
