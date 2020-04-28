@@ -286,6 +286,18 @@ button{
 #lblInfo{
 	height: 30px;
 }
+#lblright{
+	height: 30px;
+}
+#lblleft{
+	height: 30px;
+}
+#lbldown{
+	height: 30px;
+}
+#lblup{
+	height: 30px;
+}
 #lblLifeLeft{
 	width: 49%;
 	height: 30px;
