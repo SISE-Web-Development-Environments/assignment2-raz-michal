@@ -7,7 +7,6 @@ var start_time;
 var time_elapsed;
 var canvas;
 var life_left;
-var maxScore;
 var time_left;
 var balls_eaten;
 var audio= new Audio('src/pacmanSong.mp3');
@@ -424,15 +423,8 @@ function UpdatePosition() {
         lblInfo.value = "ou ou time is running out";
     }
     if (balls_eaten == numofballs) {
-        window.clearInterval(interval);
-        window.clearInterval(ghostsInterval);
-        //window.alert("Game completed, you win!");
-        audio.pause();
         endGame();
     } else if (time_left <= 0) {
-        window.clearInterval(interval);
-        window.clearInterval(ghostsInterval);
-        //window.alert("time out, your time is out");
         endGame();
     } else {
         Draw();
@@ -466,11 +458,9 @@ function ghostTouch() {
         shape.j= emptyCell[1];
         position=3;
     } else {
-        audio.pause();
         //window.alert("Sorry Game Over, you lost");
         endGame();
-        window.clearInterval(ghostsInterval);
-        window.clearInterval(interval);
+
     }
 }
 
@@ -600,7 +590,11 @@ function updateTime(){
 }
 
 function endGame() {
+    audio.pause();
     lblFScore.value = score;
+    window.clearInterval(ghostsInterval);
+    window.clearInterval(interval);
+    window.clearInterval(angelInteval);
     if (score >= 100 && life_left > 0) {
         lblInfo.value = "good job :) ";
         lblpresent1.value = "WINNER!!!";
