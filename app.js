@@ -6,6 +6,9 @@ var pac_color;
 var start_time;
 var time_elapsed;
 var canvas;
+var fiveballCanvas;
+var twentyfiveballCanvas;
+var fifteenballCanvas;
 var life_left;
 var time_left;
 var balls_eaten;
@@ -57,6 +60,12 @@ $(document).ready(function () {
     angel.src = "src/angel.png";
     canvas = document.getElementById("canvas");
     context = canvas.getContext("2d");
+    fivaballCanvas = document.getElementById("5ball");
+    fiveballContext = fivaballCanvas.getContext("2d");
+    twentyfivaballCanvas = document.getElementById("25ball");
+    twentyfivaballContext = twentyfivaballCanvas.getContext("2d");
+    fifteenballCanvas = document.getElementById("15ball");
+    fifteenballContext = fifteenballCanvas.getContext("2d");
     audio.pause();
     const left = document.getElementById('moveleft');
     left.addEventListener("keydown", function(event) {
@@ -242,6 +251,19 @@ function Start() {
                 cnt--;
             }
         }
+        fiveballContext.beginPath();
+        fiveballContext.arc(50, 10, 10, 0, 2 * Math.PI); // circle
+        fiveballContext.fillStyle = colorfive; //color
+        fiveballContext.fill();
+        fifteenballContext.beginPath();
+        fifteenballContext.arc(50, 10, 10, 0, 2 * Math.PI); // circle
+        fifteenballContext.fillStyle = colorfifteen; //color
+        fifteenballContext.fill();
+        twentyfivaballContext.beginPath();
+        twentyfivaballContext.arc(50, 10, 10, 0, 2 * Math.PI); // circle
+        twentyfivaballContext.fillStyle = colortwentyfive; //color
+        twentyfivaballContext.fill();
+
     }
     while (food_remain > 0) {
         var emptyCell = findRandomEmptyCell();
