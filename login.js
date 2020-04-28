@@ -64,6 +64,13 @@ $(document).ready(function() {
 		}
 	}
 
+
+	window.onkeydown = function (event) {
+		if (event.keyCode == 27) {
+			show_only_welcome()
+		}
+	}
+
 	var span = document.getElementsByClassName("close")[0];
 	span.onclick = function () {
 		show_only_welcome()

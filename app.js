@@ -85,7 +85,6 @@ $(document).ready(function () {
 
     $("#btnSaveSettings").click(function (event) {
             event.preventDefault();
-            show_only_game();
             colorfive = $("#colorfive").val();
             colorfifteen = $("#colorfifteen").val();
             colortwentyfive = $("#colortwentyfive").val();
@@ -96,16 +95,22 @@ $(document).ready(function () {
             time_left = gametime;
             if (moveup == '' || movedown == '' || moveright == '' || moveleft == '' || colorfive == '' || colorfifteen == '' || colortwentyfive == '' || numofballs == '' || gametime == '' || numofghosts == '') {
                 alert("Please fill all fields!");
+                show_game_settings();
             } else if (numofballs < 50 || numofballs >90) {
                 alert("Number of balls must be between 50 and 90!");
+                show_game_settings();
             } else if (gametime < 60) {
                 alert("Minimal game time is 60 seconds!");
+                show_game_settings();
             } else if (numofghosts < 1 || numofghosts > 4) {
                 alert("Number of ghosts must be between 1 and 4!");
+                show_game_settings();
             }else if (colorfive==colorfifteen || colorfifteen == colortwentyfive || colortwentyfive == colorfive) {
                 alert("The colors of the balls must be different!");
+                show_game_settings();
             }else if (moveup==movedown || movedown == moveright || moveright == moveleft || moveleft == moveup || moveup == moveright || movedown == moveleft) {
                 alert("The moving keys must be different!");
+                show_game_settings();
             } else {
                 document.getElementById('username').value = null;
                 document.getElementById('password').value = null;
@@ -113,6 +118,7 @@ $(document).ready(function () {
                 lblInfoRoundTime.value = gametime;
                 lblInfo.value = "the game is on :) ";
                 lblLifeLeft.value = life_left;
+                show_only_game();
                 Start();
             }
         });
@@ -133,9 +139,6 @@ $(document).ready(function () {
             life_left = 5;
             time_left = gametime;
             lblInfoballs.value = numofballs;
-            //lblInfo25ball.value = "blue";
-            //lblInfo15ball.value = "purple";
-            //lblInfo5ball.value = "red";
             lblInfoRoundTime.value = gametime;
             lblInfo.value = "the game is on :) ";
             lblLifeLeft.value = life_left;
@@ -635,4 +638,21 @@ function show_only_game() {
     e6.style.display = 'none';
     var e7 = document.getElementById("gamewindow");
     e7.style.display = 'block';
+}
+
+function show_game_settings() {
+    var e1 = document.getElementById("welcome");
+    e1.style.display = 'none';
+    var e2 = document.getElementById("register");
+    e2.style.display = 'none';
+    var e3 = document.getElementById("login");
+    e3.style.display = 'none';
+    var e4 = document.getElementById("myModal");
+    e4.style.display = 'none';
+    var e5 = document.getElementById("myGame");
+    e5.style.display = 'none';
+    var e6 = document.getElementById("choosesettings");
+    e6.style.display = 'block';
+    var e7 = document.getElementById("gamewindow");
+    e7.style.display = 'none';
 }
