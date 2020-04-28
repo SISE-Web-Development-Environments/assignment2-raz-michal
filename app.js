@@ -43,35 +43,6 @@ var interval;
 var ghostsInterval;
 var angelInteval;
 
-
-function saveUp(event) {
-    moveup = event.keyCode;
-    if (moveup == 27) {  // 27 is the ESC key
-        alert("You pressed the Escape key!");
-    }
-}
-
-function saveDown(event) {
-    movedown = event.keyCode;
-    if (movedown == 27) {  // 27 is the ESC key
-        alert("You pressed the Escape key!");
-    }
-}
-
-function saveRight(event) {
-    moveright = event.keyCode;
-    if (moveright == 27) {  // 27 is the ESC key
-        alert("You pressed the Escape key!");
-    }
-}
-
-function saveLeft(event) {
-    moveleft = event.keyCode;
-    if (moveleft == 27) {  // 27 is the ESC key
-        alert("You pressed the Escape key!");
-    }
-}
-
 $(document).ready(function () {
     wall = new Image();
     wall.src = "src/wall.png";
@@ -86,13 +57,35 @@ $(document).ready(function () {
     canvas = document.getElementById("canvas");
     context = canvas.getContext("2d");
     audio.pause();
-        $("#btnSaveSettings").click(function (event) {
+    const left = document.getElementById('moveleft');
+    left.addEventListener("keydown", function(event) {
+        event.preventDefault();
+        moveleft=event.keyCode;
+        left.placeholder=event.key;
+    });
+    const right = document.getElementById('moveright');
+    right.addEventListener("keydown", function(event1) {
+        event1.preventDefault();
+        moveright=event1.keyCode;
+        right.placeholder=event1.key;
+    });
+    const up = document.getElementById('moveup');
+    up.addEventListener("keydown", function(event2) {
+        event2.preventDefault();
+        moveup=event2.keyCode;
+        up.placeholder=event2.key;
+    });
+    const down = document.getElementById('movedown');
+    down.addEventListener("keydown", function(event3) {
+        event3.preventDefault();
+        movedown=event3.keyCode;
+        down.placeholder=event3.key;
+    });
+
+
+    $("#btnSaveSettings").click(function (event) {
             event.preventDefault();
             show_only_game();
-            moveup = $("#moveup").val().keyCode;
-            movedown = $("#movedown").val();
-            moveright = $("#moveright").val();
-            moveleft = $("#moveleft").val();
             colorfive = $("#colorfive").val();
             colorfifteen = $("#colorfifteen").val();
             colortwentyfive = $("#colortwentyfive").val();
