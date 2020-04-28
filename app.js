@@ -133,8 +133,7 @@ $(document).ready(function () {
             colorfive = "blue";
             colorfifteen = "purple";
             colortwentyfive = "red";
-            numofballs = 51;
-            //numofballs = Math.floor(Math.random() * 41) + 50;
+            numofballs = Math.floor(Math.random() * 41) + 50;
             gametime = Math.floor(Math.random() * 120) + 60;
             numofghosts = Math.floor(Math.random() * 4) + 1;
             life_left = 5;
@@ -160,7 +159,7 @@ function Start() {
     score = 0;
     pac_color = "yellow";
     balls_eaten = 0;
-    var cnt = 100;
+    var cnt = 150;
     var food_remain = numofballs;
     var m_food = Math.floor(food_remain * 0.3);
     var l_food = Math.floor(food_remain * 0.1);
@@ -169,10 +168,10 @@ function Start() {
     var medeicine = 1;
     start_time = new Date();
     intializeGhostPosition();
-    for (var i = 0; i < 10; i++) {
+    for (var i = 0; i < 15; i++) {
         board[i] = new Array();
         //put obstacles in (i=3,j=3) and (i=3,j=4) and (i=3,j=5), (i=6,j=1) and (i=6,j=2)
-        for (var j = 0; j < 10; j++) {
+        for (var j = 0; j < 15; j++) {
             if (
                 (i == 3 && j == 4) ||
                 (i == 3 && j == 5) ||
@@ -183,12 +182,25 @@ function Start() {
                 (i == 5 && j == 4) ||
                 (i == 6 && j == 1) ||
                 (i == 6 && j == 2) ||
-                (i == 5 && j == 2)
+                (i == 5 && j == 2) ||
 
+                (i == 8 && j == 11) ||
+                (i == 8 && j == 10) ||
+                (i == 8 && j == 9) ||
+                (i == 8 && j == 8) ||
+                (i == 9 && j == 8) ||
+                (i == 10 && j == 8) ||
+                (i == 11 && j == 8) ||
+                (i == 11 && j == 9) ||
+                (i == 11 && j == 10) ||
+                (i == 12 && j == 10) ||
+                (i == 12 && j == 11) ||
+                (i == 12 && j == 12) ||
+                (i == 13 && j == 12)
             ) {
                 board[i][j] = 4;
             } else if
-            ((i == 0 && j == 0) || (i == 0 && j == 9) && numofghosts > 1 || (i == 9 && j == 9) && numofghosts > 2 || (i == 9 && j == 0) && numofghosts > 3) {
+            ((i == 0 && j == 0) || (i == 0 && j == 14) && numofghosts > 1 || (i == 14 && j == 14) && numofghosts > 2 || (i == 14 && j == 0) && numofghosts > 3) {
                 board[i][j] = 0;
             } else {
                 var randomNum = Math.random();
@@ -253,21 +265,21 @@ function Start() {
 }
 
 function findRandomEmptyCell() {
-    var i = Math.floor(Math.random() * 9 + 1);
-    var j = Math.floor(Math.random() * 9 + 1);
+    var i = Math.floor(Math.random() * 14 + 1);
+    var j = Math.floor(Math.random() * 14 + 1);
     while (board[i][j] != 0) {
-        i = Math.floor(Math.random() * 9 + 1);
-        j = Math.floor(Math.random() * 9 + 1);
+        i = Math.floor(Math.random() * 14 + 1);
+        j = Math.floor(Math.random() * 14 + 1);
     }
     return [i, j];
 }
 
 function findRandomEmptyCellInMiddle() {
-    var i = Math.floor(Math.random() * 6 + 2);
-    var j = Math.floor(Math.random() * 6 + 2);
+    var i = Math.floor(Math.random() * 8 + 3);
+    var j = Math.floor(Math.random() * 8 + 3);
     while (board[i][j] != 0) {
-        i = Math.floor(Math.random() * 6 + 2);
-        j = Math.floor(Math.random() * 6 + 2);
+        i = Math.floor(Math.random() * 8 + 3);
+        j = Math.floor(Math.random() * 8 + 3);
     }
     return [i, j];
 }
@@ -294,11 +306,11 @@ function Draw() {
     canvas.width = canvas.width; //clean board
     lblScore.value = score;
     lblTime.value = time_elapsed;
-    for (var i = 0; i < 10; i++) {
-        for (var j = 0; j < 10; j++) {
+    for (var i = 0; i < 15; i++) {
+        for (var j = 0; j < 15; j++) {
             var center = new Object();
-            center.x = i * 60 + 30;
-            center.y = j * 60 + 30;
+            center.x = i * 40 + 20;
+            center.y = j * 40 + 20;
             if (board[i][j] == 2) {
                 context.beginPath();
                 if (pacmanAngle == 1) {
@@ -326,7 +338,7 @@ function Draw() {
                 context.fillStyle = "black"; //color
                 context.fill();
             } else if (board[i][j] == 4) {
-                context.drawImage(wall, center.x - 30, center.y - 30, 60, 60);
+                context.drawImage(wall, center.x - 20, center.y - 20, 40, 40);
             } else if (board[i][j] == 5) {
                 context.beginPath();
                 context.arc(center.x, center.y, 10, 0, 2 * Math.PI); // circle
@@ -343,26 +355,26 @@ function Draw() {
                 context.fillStyle = colortwentyfive; //color
                 context.fill();
             } else if (board[i][j] == 3) {
-                context.drawImage(newClock, center.x - 30, center.y - 30, 60, 60);
+                context.drawImage(newClock, center.x - 20, center.y - 20, 40, 40);
             } else if (board[i][j] == 8) {
-                context.drawImage(medicine, center.x - 30, center.y - 30, 60, 60);
+                context.drawImage(medicine, center.x - 20, center.y - 20, 40, 40);
             }
         }
     }
     if (ghost1_x!=-1) {
-        context.drawImage(ghost, ghost1_x*60, ghost1_y*60, 50, 50);
+        context.drawImage(ghost, ghost1_x*40, ghost1_y*40, 50, 50);
     }
     if (ghost2_x!=-1) {
-        context.drawImage(ghost, ghost2_x*60, ghost2_y*60, 50, 50);
+        context.drawImage(ghost, ghost2_x*40, ghost2_y*40, 50, 50);
     }
     if (ghost3_x!=-1) {
-        context.drawImage(ghost, ghost3_x*60, ghost3_y*60, 50, 50);
+        context.drawImage(ghost, ghost3_x*40, ghost3_y*40, 50, 50);
     }
     if (ghost4_x!=-1) {
-        context.drawImage(ghost, ghost4_x*60, ghost4_y*60, 50, 50);
+        context.drawImage(ghost, ghost4_x*40, ghost4_y*40, 50, 50);
     }
     if (angel_x!=-1) {
-        context.drawImage(angel, angel_x * 60, angel_y * 60, 50, 50);
+        context.drawImage(angel, angel_x *40, angel_y *40, 50, 50);
     }
 }
 
@@ -375,7 +387,7 @@ function UpdatePosition() {
             pacmanAngle = 1;
         }
     } else if (x == 2) {
-        if (shape.j < 9 && board[shape.i][shape.j + 1] != 4) {
+        if (shape.j < 14 && board[shape.i][shape.j + 1] != 4) {
             shape.j++;
             pacmanAngle = 2;
         }
@@ -385,7 +397,7 @@ function UpdatePosition() {
             pacmanAngle = 3;
         }
     } else if (x == 4) {
-        if (shape.i < 9 && board[shape.i + 1][shape.j] != 4) {
+        if (shape.i < 14 && board[shape.i + 1][shape.j] != 4) {
             shape.i++;
             pacmanAngle = 4;
         }
@@ -471,14 +483,14 @@ function intializeGhostPosition() {
     }
     if (numofghosts >= 2) {
         ghost2_x = 0;
-        ghost2_y = 9;
+        ghost2_y = 14;
     }
     if (numofghosts >= 3) {
-        ghost3_x = 9;
-        ghost3_y = 9;
+        ghost3_x = 14;
+        ghost3_y = 14;
     }
     if (numofghosts == 4) {
-        ghost4_x = 9;
+        ghost4_x = 14;
         ghost4_y = 0;
     }
 }
@@ -506,14 +518,14 @@ function getTheBestMove(X, Y) {
     return Math.sqrt((shape.i - X) * (shape.i - X) + (shape.j - Y) * (shape.j - Y));
 }
 function checkMoveForGhost(X, Y) {
-    if (X < 0 || Y < 0 || X > 9 || Y > 9 || board[X][Y]==4) {
+    if (X < 0 || Y < 0 || X > 14 || Y > 14 || board[X][Y]==4) {
         return false;
     }
     return true;
 }
 
 function FindBestPathForGhost(ghostNumber, X, Y) {
-    if (X < 0 || Y < 0 || X > 9 || Y > 9) {
+    if (X < 0 || Y < 0 || X > 14 || Y > 14) {
         return;
     }
     var left = getTheBestMove(X - 1, Y);
@@ -537,7 +549,7 @@ function FindBestPathForGhost(ghostNumber, X, Y) {
 
 
 function checkMoveForAngel(X, Y) {
-    if (X < 0 || Y < 0 || X > 9 || Y > 9 || board[X][Y] == 4 || (X == ghost1_x && Y == ghost1_y) ||
+    if (X < 0 || Y < 0 || X > 14 || Y > 14 || board[X][Y] == 4 || (X == ghost1_x && Y == ghost1_y) ||
         (X == ghost2_x && Y == ghost2_y) || (X == ghost3_x && Y == ghost3_y) || (X == ghost4_x && Y == ghost4_y)) {
         return false;
     }
@@ -624,4 +636,6 @@ function show_only_game() {
     e5.style.display = 'block';
     var e6 = document.getElementById("choosesettings");
     e6.style.display = 'none';
+    var e7 = document.getElementById("gamewindow");
+    e7.style.display = 'block';
 }
