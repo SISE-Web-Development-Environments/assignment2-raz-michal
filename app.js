@@ -90,7 +90,7 @@ $(document).ready(function () {
         $("#btnSaveSettings").click(function (event) {
             event.preventDefault();
             show_only_game();
-            moveup = $("#moveup").val();
+            moveup = $("#moveup").val().keyCode;
             movedown = $("#movedown").val();
             moveright = $("#moveright").val();
             moveleft = $("#moveleft").val();
