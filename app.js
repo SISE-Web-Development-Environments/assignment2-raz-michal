@@ -119,6 +119,7 @@ $(document).ready(function () {
                 lblInfoballs.value = numofballs;
                 lblInfoRoundTime.value = gametime;
                 lblInfo.value = "the game is on :) ";
+                lblLifeLeft.value = life_left;
                 Start();
             }
         });
@@ -144,6 +145,7 @@ $(document).ready(function () {
             //lblInfo5ball.value = "red";
             lblInfoRoundTime.value = gametime;
             lblInfo.value = "the game is on :) ";
+            lblLifeLeft.value = life_left;
             Start();
         });
 
@@ -423,6 +425,7 @@ function UpdatePosition() {
         } else if (board[shape.i][shape.j] == 8) {
             life_left++;
             lblInfo.value = "you earned extra life :)";
+            lblLifeLeft.value = life_left;
             //window.alert("you have earned extra life :) ");
         }
     }
@@ -458,7 +461,6 @@ function initiateKeyListener() {
 function ghostTouch() {
     if (life_left > 0) {
         window.alert("You have been eaten by a ghost!");
-        lblInfo.value = "don't let them eat you!";
         initiateKeyListener();
         intializeGhostPosition();
         life_left--;
@@ -469,6 +471,8 @@ function ghostTouch() {
         shape.i= emptyCell[0];
         shape.j= emptyCell[1];
         position=3;
+        lblInfo.value = "don't let them eat you!";
+        lblLifeLeft.value = life_left;
     } else {
         //window.alert("Sorry Game Over, you lost");
         endGame();
