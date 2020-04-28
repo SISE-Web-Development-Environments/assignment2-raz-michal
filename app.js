@@ -267,6 +267,9 @@ function findRandomEmptyCellInMiddle() {
     return [i, j];
 }
 
+/**
+ * @return {number}
+ */
 function GetKeyPressed() {
     if (keysDown[moveup]) {
         return 1;
