@@ -273,27 +273,37 @@ button{
 }
 #lblName{
 	width: 49%;
+	height: 80%;
 }
 #lblScore{
-	width: 49%
+	width: 49%;
+	height: 80%;
 }
 #lblTime{
-	width: 49%
+	width: 49%;
+	height: 80%;
 }
 #lblLifeLeft{
-	width: 49%
+	width: 49%;
+	height: 80%;
 }
 #lblInfoballs{
-	width: 49%
+	width: 49%;
+	height: 80%;
 }
 #lblInfoRoundTime{
-	width: 49%
+	width: 49%;
+	height: 80%;
 }
 #btnRandom{
-	width: 48%
+	width: 48%;
 }
 #btnSaveSettings{
 	width: 48%
+}
+#newGameBtn{
+	width: 35%;
+	height: 50%;
 }
 
 

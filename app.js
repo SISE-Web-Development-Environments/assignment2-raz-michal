@@ -175,6 +175,13 @@ $(document).ready(function () {
         e1.style.display = 'none';
         show_only_welcome();
     });
+    $("#newGameBtn").click(function (event) {
+        event.preventDefault();
+        CloseGameSettings();
+        Start();
+        Draw();
+    });
+
 
 });
 
