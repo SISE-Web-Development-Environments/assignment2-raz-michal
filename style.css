@@ -216,14 +216,9 @@ button{
 }
 
 /* game Window */
-#gamewindow {
-	width: 100%;
-	height: 100%;
-	overflow: hidden;
-}
  #canvas{
 	 background-image:url("src/Wiki-background.jpg");
-	 width: 100%;
+	 width: 38%;
 	 float: none;
  }
 
@@ -238,4 +233,28 @@ button{
 	content: "";
 	clear: both;
 	display: table;
+}
+
+
+/* get Details from user */
+#moveup{
+	width: 23%
+}
+#movedown{
+	width: 23%
+}
+#moveright{
+	width: 23%
+}
+#moveleft{
+	width: 23%
+}
+#colorfive{
+	width: 32%
+}
+#colorfifteen{
+	width: 32%
+}
+#colortwentyfive{
+	width: 32%
 }

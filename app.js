@@ -7,6 +7,7 @@ var start_time;
 var time_elapsed;
 var canvas;
 var life_left;
+var maxScore;
 var time_left;
 var balls_eaten;
 var audio= new Audio('src/pacmanSong.mp3');
@@ -86,26 +87,9 @@ $(document).ready(function () {
     canvas = document.getElementById("canvas");
     context = canvas.getContext("2d");
     audio.pause();
-
-    /* DELETE IT !!!!
-    moveup = 38;
-    moveright = 39;
-    movedown = 40;
-    moveleft = 37;
-    colorfive = "red";
-    colorfifteen = "blue"
-    colortwentyfive = "green"
-    numofballs = 30;
-    gametime = 60;
-    numofghosts = 1;
-    life_left = 5;
-    time_left = gametime;
-    DELETE IT!!! */
-
-
-
         $("#btnSaveSettings").click(function (event) {
             event.preventDefault();
+            show_only_game();
             moveup = $("#moveup").val();
             movedown = $("#movedown").val();
             moveright = $("#moveright").val();
@@ -133,12 +117,6 @@ $(document).ready(function () {
             } else {
                 document.getElementById('username').value = null;
                 document.getElementById('password').value = null;
-                var e1 = document.getElementById("choosesettings");
-                e1.style.display = 'none';
-                var e2 = document.getElementById("gamewindow");
-                e2.style.display = 'block';
-                var e3 = document.getElementById("gameInfo");
-                e3.style.display = 'block';
                 lblInfoballs.value = numofballs;
                 lblInfoRoundTime.value = gametime;
                 lblInfo.value = "the game is on :) ";
@@ -148,6 +126,7 @@ $(document).ready(function () {
 
         $("#btnRandom").click(function (event) {
             event.preventDefault();
+            show_only_game();
             moveup = 38;
             movedown = 40;
             moveright = 39;
@@ -155,18 +134,12 @@ $(document).ready(function () {
             colorfive = "blue";
             colorfifteen = "purple";
             colortwentyfive = "red";
-            numofballs = 87;
+            numofballs = 51;
             //numofballs = Math.floor(Math.random() * 41) + 50;
             gametime = Math.floor(Math.random() * 120) + 60;
             numofghosts = Math.floor(Math.random() * 4) + 1;
             life_left = 5;
             time_left = gametime;
-            var e1 = document.getElementById("choosesettings");
-            e1.style.display = 'none';
-            var e2 = document.getElementById("gamewindow");
-            e2.style.display = 'block';
-            var e3 = document.getElementById("gameInfo");
-            e3.style.display = 'block';
             lblInfoballs.value = numofballs;
             //lblInfo25ball.value = "blue";
             //lblInfo15ball.value = "purple";
@@ -176,13 +149,11 @@ $(document).ready(function () {
             Start();
         });
 
-
-    //Start();
-
 });
 
 
 // game function
+
 
 function Start() {
     audio.play();
@@ -276,8 +247,8 @@ function Start() {
     angel_y=emptyCell[1];
     intializeGhostPosition();
     initiateKeyListener();
-    interval = setInterval(UpdatePosition, 100);
-    ghostsInterval = setInterval(moveAllTheGhosts, 600);
+    interval = setInterval(UpdatePosition, 150);
+    ghostsInterval = setInterval(moveAllTheGhosts, 1500);
     angelInteval = setInterval(angelMove,250);
 
 }
@@ -452,7 +423,7 @@ function UpdatePosition() {
         pac_color = "grey";
         lblInfo.value = "ou ou time is running out";
     }
-    if (balls_eaten + 1 == numofballs) {
+    if (balls_eaten == numofballs) {
         window.clearInterval(interval);
         window.clearInterval(ghostsInterval);
         //window.alert("Game completed, you win!");
@@ -642,9 +613,21 @@ function endGame() {
     }
     var e1 = document.getElementById("gameEndModal");
     e1.style.display = 'block';
-    var e2 = document.getElementById("gamewindow");
+    var e2 = document.getElementById("myGame");
     e2.style.display = 'none';
-    var e3 = document.getElementById("gameInfo");
-    e3.style.display = 'none';
 }
 
+function show_only_game() {
+    var e1 = document.getElementById("welcome");
+    e1.style.display = 'none';
+    var e2 = document.getElementById("register");
+    e2.style.display = 'none';
+    var e3 = document.getElementById("login");
+    e3.style.display = 'none';
+    var e4 = document.getElementById("myModal");
+    e4.style.display = 'none';
+    var e5 = document.getElementById("myGame");
+    e5.style.display = 'block';
+    var e6 = document.getElementById("choosesettings");
+    e6.style.display = 'none';
+}
