@@ -167,12 +167,14 @@ $(document).ready(function () {
     $("#btnNewGame").click(function (event) {
         var e1 = document.getElementById("gameEndModal");
         e1.style.display = 'none';
+        CloseGameSettings();
         show_game_settings();
     });
 
     $("#btnOut").click(function (event) {
         var e1 = document.getElementById("gameEndModal");
         e1.style.display = 'none';
+        CloseGameSettings();
         show_only_welcome();
     });
     $("#newGameBtn").click(function (event) {
@@ -360,7 +362,6 @@ function GetKeyPressed() {
 }
 
 function Draw() {
-    audio.play();
     var background = new Image();
     background.src = "src/Wiki-background.jpg";
     canvas.width = canvas.width; //clean board
@@ -493,7 +494,7 @@ function UpdatePosition() {
     time_left = gametime - time_elapsed;
     if (time_left <= 15) {
         pac_color = "grey";
-        lblInfo.value = "INFO: you ou time is running out";
+        lblInfo.value = "INFO: your time is running out";
     }
     if (balls_eaten == numofballs) {
         endGame();
@@ -658,19 +659,8 @@ function angelMove(){
     }
 }
 
-function updateTime(){
-    start_time=new Date();
-    time_elapsed = (currentTime - start_time) / 1000;
-    time_left = gametime - time_elapsed;
-}
-
 function endGame() {
-    audio.pause();
     lblFScore.value = score;
-    window.clearInterval(ghostsInterval);
-    window.clearInterval(interval);
-    window.clearInterval(angelInteval);
-    context.clearRect(0, 0, canvas.width, canvas.height);
     if (score >= 100 && life_left > 0) {
         lblInfo.value = "INFO: good job :) ";
         lblpresent1.value = "WINNER!!!";
@@ -681,12 +671,9 @@ function endGame() {
         lblInfo.value = "INFO: maybe next time";
         lblpresent1.value = "LOSER!";
     }
-    var e1 = document.getElementById("gameEndModal");
-    e1.style.display = 'block';
-    var e2 = document.getElementById("myGame");
-    e2.style.display = 'none';
-    var e7 = document.getElementById("gamewindow");
-    e7.style.display = 'none';
+    show_only_welcome();
+    show_finish();
+
 }
 
 function show_only_game() {
@@ -795,6 +782,27 @@ function CloseGameSettings() {
     life_left = 5;
     lblLifeLeft.value = "Life left: " + 5;
 }
+
+function show_finish() {
+    var e1 = document.getElementById("welcome");
+    e1.style.display = 'none';
+    var e2 = document.getElementById("register");
+    e2.style.display = 'none';
+    var e3 = document.getElementById("login");
+    e3.style.display = 'none';
+    var e4 = document.getElementById("myModal");
+    e4.style.display = 'none';
+    var e5 = document.getElementById("myGame");
+    e5.style.display = 'none';
+    var e6 = document.getElementById("choosesettings");
+    e6.style.display = 'none';
+    var e7 = document.getElementById("gamewindow");
+    e7.style.display = 'none';
+    var e8 = document.getElementById("gameEndModal");
+    e8.style.display = 'block';
+    CloseGameSettings();
+}
+
 
 
 
